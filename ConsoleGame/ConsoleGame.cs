@@ -77,6 +77,17 @@ class ConsoleGame
 
     private void renderLocation()
     {
-        this.game.
+        CurrentLocation currentLocation = this.game.GetCurrentLocation();
+        if (currentLocation.batDroppings) {
+            Console.WriteLine("Bat Droppings");
+        }
+
+        if (currentLocation.badOdur) {
+            Console.WriteLine("Bad odur");
+        }
+
+        if (currentLocation.gustsOfWind) {
+            Console.WriteLine("Gust of wind");
+        }
     }
 }
