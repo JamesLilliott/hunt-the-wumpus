@@ -11,7 +11,7 @@ class Game
         this.pit[0] = 1; this.pit[1] = 1;
         this.bats[0] = 1; this.bats[1] = 2;
         this.wumpus[0] = 2; this.wumpus[1] = 3;
-        this.player[0] = 2; this.player[1] = 2;
+        this.player[0] = 3; this.player[1] = 3;
         this.gameOver = false;
     }
 
@@ -31,18 +31,20 @@ class Game
 
     private bool isPlayerNextTo(int[] coords)
     {
-        if (this.areCoordsNextToEAchOther(this.player[0], coords[0])) {
+        // Do x coords match and y off by one?
+        if (coords[0] == this.player[0] && this.areCoordsNextToEachOther(this.player[1], coords[1])) {
             return true;
         }
 
-        if (this.areCoordsNextToEAchOther(this.player[1], coords[1])) {
+        // Do y coords match and x off by one?
+        if (coords[1] == this.player[1] && this.areCoordsNextToEachOther(this.player[0], coords[0])) {
             return true;
         }
 
         return false;
     }
 
-    private bool areCoordsNextToEAchOther(int x, int y)
+    private bool areCoordsNextToEachOther(int x, int y)
     {
         return (x - y) == 1 || (y - x) == 1;
     }

@@ -16,7 +16,6 @@ class ConsoleGame
             this.renderLocation();
             this.game.gameOver = true;
         }
-
     }
 
     private void welcomePlayer()
