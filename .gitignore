@@ -476,5 +476,5 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-
+# Custom
 obj/Debug/net7.0
