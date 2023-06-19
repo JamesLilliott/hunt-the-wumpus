@@ -17,7 +17,12 @@ class Game
 
     public bool processCommand(Command command)
     {
-        return true;
+        if (command.isMove()) {
+            return this.movePlayer(command);
+        }
+
+        return false;
+        
     }
 
     public CurrentLocation GetCurrentLocation()
@@ -47,5 +52,40 @@ class Game
     private bool areCoordsNextToEachOther(int x, int y)
     {
         return (x - y) == 1 || (y - x) == 1;
+    }
+
+    private bool movePlayer(Command command)
+    {
+        switch (command) {
+            case Command.MoveUp:
+                if (this.player[1] == 4) {
+                    return false;
+                }
+                this.player[1]++;
+            break;
+
+            case Command.MoveDown:
+                if (this.player[1] == 1) {
+                    return false;
+                }
+                this.player[1]--;
+            break;
+
+            case Command.MoveLeft:
+                if (this.player[0] == 1) {
+                    return false;
+                }
+                this.player[0]--;
+            break;
+
+            case Command.MoveRight:
+                if (this.player[0] == 4) {
+                    return false;
+                }
+                this.player[0]++;
+            break;
+
+        }
+        return true;
     }
 }

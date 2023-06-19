@@ -8,13 +8,18 @@ class ConsoleGame
 
     public void run()
     {
-        this.welcomePlayer();
+        //this.welcomePlayer();
         String input;
         while (!this.game.gameOver) {
             input = this.inputCommand();
             Command command = this.convertInputToCommand(input);
+            bool validCommand = game.processCommand(command);
+            if (!validCommand) {
+                Console.WriteLine("Unable to move that way");
+            }
+
             this.renderLocation();
-            this.game.gameOver = true;
+            //this.game.gameOver = true;
         }
     }
 

@@ -6,5 +6,26 @@ enum Command {
     ShootLeft,
     ShootRight,
     ShootUp,
-    ShootDown,   
+    ShootDown,
+}
+
+static class CommandMethods
+{
+    public static bool isMove(this Command command)
+    {
+        switch (command)
+        {
+            case Command.MoveLeft:
+                return true;
+            case Command.MoveRight:
+                return true;
+            case Command.MoveUp:
+                return true;
+            case Command.MoveDown:
+                return true;
+            default:
+                return false;
+        }
+        
+    }
 }
