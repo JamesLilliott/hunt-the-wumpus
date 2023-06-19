@@ -72,10 +72,10 @@ class ConsoleGame
         "move right" => Command.MoveRight,
         "move up" => Command.MoveUp,
         "move down" => Command.MoveDown,
-        "shoot left" => Command.MoveLeft,
-        "shoot right" => Command.MoveRight,
-        "shoot up" => Command.MoveUp,
-        "shoot down" => Command.MoveDown,
+        "shoot left" => Command.ShootLeft,
+        "shoot right" => Command.ShootRight,
+        "shoot up" => Command.ShootUp,
+        "shoot down" => Command.ShootDown,
         _ => throw new Exception("Invalid Command"),
     };
 

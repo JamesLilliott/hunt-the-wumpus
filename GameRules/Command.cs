@@ -25,6 +25,18 @@ static class CommandMethods
                 return true;
             default:
                 return false;
+        }   
+    }
+
+    public static bool isShoot(this Command command)
+    {
+        switch (command)
+        {
+            case Command.ShootDown: case Command.ShootUp: case Command.ShootLeft: case Command.ShootRight:
+                Console.WriteLine("Shooting");
+                return true;
+            default:
+                return false;
         }
         
     }

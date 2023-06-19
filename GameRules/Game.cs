@@ -21,6 +21,10 @@ class Game
             return this.movePlayer(command);
         }
 
+        if (command.isShoot()) {
+            return this.shoot(command);
+        }
+
         return false;
         
     }
@@ -84,6 +88,34 @@ class Game
                 }
                 this.player[0]++;
             break;
+
+        }
+        return true;
+    }
+
+    private bool shoot(Command command)
+    {
+         switch (command) {
+            case Command.ShootUp:
+                if (this.player[0] == this.wumpus[0] && this.player[1] + 1 == this.wumpus[1]) {
+                    this.gameOver = true;
+                }
+                break;
+            case Command.ShootDown:
+                if (this.player[0] == this.wumpus[0] && this.player[1] - 1 == this.wumpus[1]) {
+                    this.gameOver = true;
+                }
+                break;
+            case Command.ShootLeft:
+                if (this.player[1] == this.wumpus[1] && this.player[0] - 1 == this.wumpus[0]) {
+                    this.gameOver = true;
+                }
+                break;
+            case Command.ShootRight:
+                if (this.player[1] == this.wumpus[1] && this.player[0] + 1 == this.wumpus[0]) {
+                    this.gameOver = true;
+                }
+                break;
 
         }
         return true;
