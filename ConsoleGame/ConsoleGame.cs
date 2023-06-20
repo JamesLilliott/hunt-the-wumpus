@@ -8,18 +8,31 @@ class ConsoleGame
 
     public void run()
     {
-        //this.welcomePlayer();
+        this.welcomePlayer();
+        // add instructions here
         String input;
         while (!this.game.gameOver) {
             input = this.inputCommand();
             Command command = this.convertInputToCommand(input);
-            bool validCommand = game.processCommand(command);
-            if (!validCommand) {
+            CommandResponse commandResponse = game.processCommand(command);
+            
+            if (commandResponse is CommandResponse.FailedToMove) {
                 Console.WriteLine("Unable to move that way");
             }
 
+            if (commandResponse is CommandResponse.Moved) {
+                Console.WriteLine("You moved to the next cavern");
+            }
+
+            if (commandResponse is CommandResponse.ShotHit) {
+                Console.WriteLine("You hit the Wumpus!");
+            }
+
+            if (commandResponse is CommandResponse.ShotMissed) {
+                Console.WriteLine("You missed the Wumpus!");
+            }
+
             this.renderLocation();
-            //this.game.gameOver = true;
         }
     }
 

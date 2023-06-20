@@ -15,7 +15,7 @@ class Game
         this.gameOver = false;
     }
 
-    public bool processCommand(Command command)
+    public CommandResponse processCommand(Command command)
     {
         if (command.isMove()) {
             return this.movePlayer(command);
@@ -25,7 +25,7 @@ class Game
             return this.shoot(command);
         }
 
-        return false;
+        return CommandResponse.InvalidCommand;
         
     }
 
@@ -58,66 +58,70 @@ class Game
         return (x - y) == 1 || (y - x) == 1;
     }
 
-    private bool movePlayer(Command command)
+    private CommandResponse movePlayer(Command command)
     {
         switch (command) {
             case Command.MoveUp:
                 if (this.player[1] == 4) {
-                    return false;
+                    return CommandResponse.FailedToMove;
                 }
                 this.player[1]++;
             break;
 
             case Command.MoveDown:
                 if (this.player[1] == 1) {
-                    return false;
+                    return CommandResponse.FailedToMove;
                 }
                 this.player[1]--;
             break;
 
             case Command.MoveLeft:
                 if (this.player[0] == 1) {
-                    return false;
+                    return CommandResponse.FailedToMove;
                 }
                 this.player[0]--;
             break;
 
             case Command.MoveRight:
                 if (this.player[0] == 4) {
-                    return false;
+                    return CommandResponse.FailedToMove;
                 }
                 this.player[0]++;
             break;
 
         }
-        return true;
+        return CommandResponse.Moved;
     }
 
-    private bool shoot(Command command)
+    private CommandResponse shoot(Command command)
     {
          switch (command) {
             case Command.ShootUp:
                 if (this.player[0] == this.wumpus[0] && this.player[1] + 1 == this.wumpus[1]) {
                     this.gameOver = true;
+                    return CommandResponse.ShotHit;
                 }
                 break;
             case Command.ShootDown:
                 if (this.player[0] == this.wumpus[0] && this.player[1] - 1 == this.wumpus[1]) {
                     this.gameOver = true;
+                    return CommandResponse.ShotHit;
                 }
                 break;
             case Command.ShootLeft:
                 if (this.player[1] == this.wumpus[1] && this.player[0] - 1 == this.wumpus[0]) {
                     this.gameOver = true;
+                    return CommandResponse.ShotHit;
                 }
                 break;
             case Command.ShootRight:
                 if (this.player[1] == this.wumpus[1] && this.player[0] + 1 == this.wumpus[0]) {
                     this.gameOver = true;
+                    return CommandResponse.ShotHit;
                 }
                 break;
 
         }
-        return true;
+        return CommandResponse.ShotMissed;
     }
 }

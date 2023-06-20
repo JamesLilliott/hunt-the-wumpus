@@ -13,31 +13,18 @@ static class CommandMethods
 {
     public static bool isMove(this Command command)
     {
-        switch (command)
-        {
-            case Command.MoveLeft:
-                return true;
-            case Command.MoveRight:
-                return true;
-            case Command.MoveUp:
-                return true;
-            case Command.MoveDown:
-                return true;
-            default:
-                return false;
-        }   
+        if (command is Command.MoveLeft or Command.MoveRight or Command.MoveUp or Command.MoveDown) {
+            return true;
+        }        
+        return false;
     }
 
     public static bool isShoot(this Command command)
     {
-        switch (command)
-        {
-            case Command.ShootDown: case Command.ShootUp: case Command.ShootLeft: case Command.ShootRight:
-                Console.WriteLine("Shooting");
-                return true;
-            default:
-                return false;
-        }
-        
+        if (command is Command.ShootLeft or Command.ShootRight or Command.ShootUp or Command.ShootDown) {
+            return true;
+        }        
+
+        return false;
     }
 }
