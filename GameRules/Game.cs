@@ -18,7 +18,38 @@ class Game
     public CommandResponse processCommand(Command command)
     {
         if (command.isMove()) {
-            return this.MovePlayer(command);
+            CommandResponse commandResponse = this.MovePlayer(command);
+            if (commandResponse != CommandResponse.FailedToMove) {
+                
+                if (this.IsPlayerOn(this.wumpus)) {
+                    this.gameOver = true;
+                    return CommandResponse.AteByWumpus;
+                }
+
+                if (this.IsPlayerOn(this.bats)) {
+                    this.bats[0] = -1;
+                    this.bats[1] = -1;
+
+                    Random rnd = new Random();
+                    int x  = rnd.Next(4);
+                    int y  = rnd.Next(4);
+                    
+                    while (this.IsCoordsOccupied(x, y)) {
+                        x  = rnd.Next(4);
+                        y  = rnd.Next(4);
+                    }
+
+                    this.player[0] = x;
+                    this.player[0] = y;
+                    
+                    return CommandResponse.MovedByBats;
+                }
+
+                if (this.IsPlayerOn(this.pit)) {
+                    this.gameOver = true;
+                    return CommandResponse.FellInPit;
+                }
+            }
         }
 
         if (command.isShoot()) {
@@ -125,6 +156,24 @@ class Game
         }
 
         return false; // Default case, should never be reached
+    }
+
+    private bool IsPlayerOn(int[] coords)
+    {
+        return this.player[0] == coords[0] & this.player[1] == coords[1];
+    }
+
+    private bool IsCoordsOccupied(int x, int y) 
+    {
+        if (this.pit[0] == x & this.pit[1] == y) {
+            return true;
+        }
+
+        if (this.wumpus[0] == x & this.wumpus[1] == y) {
+            return true;
+        }
+
+        return false;
     }
 
 }

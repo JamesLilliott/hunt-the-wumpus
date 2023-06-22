@@ -9,6 +9,8 @@ class ConsoleGame
     public void run()
     {
         this.welcomePlayer();
+        this.renderLocation();
+
         // add instructions here
         String input;
         while (!this.game.gameOver) {
@@ -30,6 +32,18 @@ class ConsoleGame
 
             if (commandResponse is CommandResponse.ShotMissed) {
                 Console.WriteLine("You missed the Wumpus!");
+            }
+
+            if (commandResponse is CommandResponse.AteByWumpus) {
+                Console.WriteLine("You wandered into the Wumpus nest and got eaten!");
+            }
+
+            if (commandResponse is CommandResponse.FellInPit) {
+                Console.WriteLine("You wandered into a pit and fell to your death!");
+            }
+
+            if (commandResponse is CommandResponse.MovedByBats) {
+                Console.WriteLine("You wandered into a bat nest and got transported to a different cavern!");
             }
 
             this.renderLocation();
@@ -94,6 +108,11 @@ class ConsoleGame
 
     private void renderLocation()
     {
+        if (this.game.gameOver) {
+            Console.WriteLine("Game Over!");
+            return;
+        }
+        
         CurrentLocation currentLocation = this.game.GetCurrentLocation();
         if (currentLocation.batDroppings) {
             Console.WriteLine("Bat Droppings");
