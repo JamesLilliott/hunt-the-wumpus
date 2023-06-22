@@ -18,11 +18,11 @@ class Game
     public CommandResponse processCommand(Command command)
     {
         if (command.isMove()) {
-            return this.movePlayer(command);
+            return this.MovePlayer(command);
         }
 
         if (command.isShoot()) {
-            return this.shoot(command);
+            return this.Shoot(command);
         }
 
         return CommandResponse.InvalidCommand;
@@ -58,70 +58,73 @@ class Game
         return (x - y) == 1 || (y - x) == 1;
     }
 
-    private CommandResponse movePlayer(Command command)
+    private CommandResponse MovePlayer(Command command)
     {
-        switch (command) {
+        bool isValidMove = false;
+
+        switch (command)
+        {
             case Command.MoveUp:
-                if (this.player[1] == 4) {
-                    return CommandResponse.FailedToMove;
-                }
-                this.player[1]++;
-            break;
+                isValidMove = player[1] != 4;
+                if (isValidMove)
+                    player[1]++;
+                break;
 
             case Command.MoveDown:
-                if (this.player[1] == 1) {
-                    return CommandResponse.FailedToMove;
-                }
-                this.player[1]--;
-            break;
+                isValidMove = player[1] != 1;
+                if (isValidMove)
+                    player[1]--;
+                break;
 
             case Command.MoveLeft:
-                if (this.player[0] == 1) {
-                    return CommandResponse.FailedToMove;
-                }
-                this.player[0]--;
-            break;
+                isValidMove = player[0] != 1;
+                if (isValidMove)
+                    player[0]--;
+                break;
 
             case Command.MoveRight:
-                if (this.player[0] == 4) {
-                    return CommandResponse.FailedToMove;
-                }
-                this.player[0]++;
-            break;
-
+                isValidMove = player[0] != 4;
+                if (isValidMove)
+                    player[0]++;
+                break;
         }
-        return CommandResponse.Moved;
+
+        return isValidMove ? CommandResponse.Moved : CommandResponse.FailedToMove;
     }
 
-    private CommandResponse shoot(Command command)
-    {
-         switch (command) {
-            case Command.ShootUp:
-                if (this.player[0] == this.wumpus[0] && this.player[1] + 1 == this.wumpus[1]) {
-                    this.gameOver = true;
-                    return CommandResponse.ShotHit;
-                }
-                break;
-            case Command.ShootDown:
-                if (this.player[0] == this.wumpus[0] && this.player[1] - 1 == this.wumpus[1]) {
-                    this.gameOver = true;
-                    return CommandResponse.ShotHit;
-                }
-                break;
-            case Command.ShootLeft:
-                if (this.player[1] == this.wumpus[1] && this.player[0] - 1 == this.wumpus[0]) {
-                    this.gameOver = true;
-                    return CommandResponse.ShotHit;
-                }
-                break;
-            case Command.ShootRight:
-                if (this.player[1] == this.wumpus[1] && this.player[0] + 1 == this.wumpus[0]) {
-                    this.gameOver = true;
-                    return CommandResponse.ShotHit;
-                }
-                break;
 
+    
+    private CommandResponse Shoot(Command command)
+    {
+        bool isShotHit = IsPlayerAdjacentToWumpus(command);
+
+        if (isShotHit)  
+        {
+            gameOver = true;
+            return CommandResponse.ShotHit;
         }
+
         return CommandResponse.ShotMissed;
     }
+
+    private bool IsPlayerAdjacentToWumpus(Command command)
+    {
+        switch (command)
+        {
+            case Command.ShootUp:
+                return player[0] == wumpus[0] && player[1] + 1 == wumpus[1];
+
+            case Command.ShootDown:
+                return player[0] == wumpus[0] && player[1] - 1 == wumpus[1];
+
+            case Command.ShootLeft:
+                return player[1] == wumpus[1] && player[0] - 1 == wumpus[0];
+
+            case Command.ShootRight:
+                return player[1] == wumpus[1] && player[0] + 1 == wumpus[0];
+        }
+
+        return false; // Default case, should never be reached
+    }
+
 }
