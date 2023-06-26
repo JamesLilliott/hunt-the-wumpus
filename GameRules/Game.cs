@@ -27,22 +27,7 @@ class Game
                 }
 
                 if (this.IsPlayerOn(this.bats)) {
-                    this.bats[0] = -1;
-                    this.bats[1] = -1;
-
-                    Random rnd = new Random();
-                    int x  = rnd.Next(4);
-                    int y  = rnd.Next(4);
-                    
-                    while (this.IsCoordsOccupied(x, y)) {
-                        x  = rnd.Next(4);
-                        y  = rnd.Next(4);
-                    }
-
-                    this.player[0] = x;
-                    this.player[0] = y;
-                    
-                    return CommandResponse.MovedByBats;
+                    return BatsMovePlayer();
                 }
 
                 if (this.IsPlayerOn(this.pit)) {
@@ -58,6 +43,27 @@ class Game
 
         return CommandResponse.InvalidCommand;
         
+    }
+
+    private CommandResponse BatsMovePlayer()
+    {
+        this.bats[0] = -1;
+        this.bats[1] = -1;
+
+        Random rnd = new Random();
+        int x = rnd.Next(4);
+        int y = rnd.Next(4);
+
+        while (this.IsCoordsOccupied(x, y))
+        {
+            x = rnd.Next(4);
+            y = rnd.Next(4);
+        }
+
+        this.player[0] = x;
+        this.player[0] = y;
+
+        return CommandResponse.MovedByBats;
     }
 
     public CurrentLocation GetCurrentLocation()
