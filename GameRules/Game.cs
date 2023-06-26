@@ -7,7 +7,7 @@ class Game
     public Boolean gameOver;
     
     public Game()
-    {
+    { 
         this.pit[0] = 1; this.pit[1] = 1;
         this.bats[0] = 1; this.bats[1] = 2;
         this.wumpus[0] = 2; this.wumpus[1] = 3;
@@ -34,6 +34,8 @@ class Game
                     this.gameOver = true;
                     return CommandResponse.FellInPit;
                 }
+
+                return commandResponse;
             }
         }
 
