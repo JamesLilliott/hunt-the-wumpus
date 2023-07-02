@@ -4,14 +4,12 @@ class Game
     private int[] bats = new int[2];
     private int[] wumpus = new int[2];
     private int[] player = new int[2];
+    private int maxSize = 4;
     public Boolean gameOver;
     
     public Game()
     { 
-        this.pit[0] = 1; this.pit[1] = 1;
-        this.bats[0] = 1; this.bats[1] = 2;
-        this.wumpus[0] = 2; this.wumpus[1] = 3;
-        this.player[0] = 3; this.player[1] = 3;
+        this.PlaceObsticlesAndPlayer();
         this.gameOver = false;
     }
 
@@ -53,14 +51,14 @@ class Game
         this.bats[1] = -1;
 
         Random rnd = new Random();
-        int x = rnd.Next(4);
-        int y = rnd.Next(4);
+        int x = rnd.Next(this.maxSize);
+        int y = rnd.Next(this.maxSize);
 
         while (this.IsCoordsOccupied(x, y))
         {
-            x = rnd.Next(4);
-            y = rnd.Next(4);
-        }
+            x = rnd.Next(this.maxSize);
+            y = rnd.Next(this.maxSize);
+        } 
 
         this.player[0] = x;
         this.player[0] = y;
@@ -104,7 +102,7 @@ class Game
         switch (command)
         {
             case Command.MoveUp:
-                isValidMove = player[1] != 4;
+                isValidMove = player[1] != this.maxSize;
                 if (isValidMove)
                     player[1]++;
                 break;
@@ -122,7 +120,7 @@ class Game
                 break;
 
             case Command.MoveRight:
-                isValidMove = player[0] != 4;
+                isValidMove = player[0] != this.maxSize;
                 if (isValidMove)
                     player[0]++;
                 break;
@@ -184,4 +182,50 @@ class Game
         return false;
     }
 
+    private void PlaceObsticlesAndPlayer()
+    {
+        List<int[]> occupiedCells = new List<int[]>();
+        int[] cell;
+        
+        cell = this.SelectUnoccupidCell(occupiedCells);
+        occupiedCells.Add(cell);
+        this.pit[0] = cell[0]; this.pit[1] = cell[1];
+
+        cell = this.SelectUnoccupidCell(occupiedCells);
+        occupiedCells.Add(cell);
+        this.bats[0] = cell[0]; this.bats[1] = cell[1];
+
+        cell = this.SelectUnoccupidCell(occupiedCells);
+        occupiedCells.Add(cell);
+        this.wumpus[0] = cell[0]; this.wumpus[1] = cell[1];
+
+        cell = this.SelectUnoccupidCell(occupiedCells);
+        occupiedCells.Add(cell);
+        this.player[0] = cell[0]; this.player[1] = cell[1];
+    }
+
+    private int[] SelectUnoccupidCell(List<int[]> occupiedCells)
+    {
+        Random rnd = new Random();
+        bool occupied;
+        int[] selectedCell;
+        int x;
+        int y;
+
+        do {
+            x = rnd.Next(this.maxSize);
+            y = rnd.Next(this.maxSize);
+            selectedCell = new int[2]{x, y};
+            
+            occupied = false;
+            occupiedCells.ForEach((occupiedCell) => {
+                // Check if selected cell matches any occupied cells
+                if (occupiedCell[0] == selectedCell[0] && occupiedCell[1] == selectedCell[1]) {
+                    occupied = true;
+                }
+            });
+        } while (occupied);
+
+        return selectedCell;
+    }
 }
