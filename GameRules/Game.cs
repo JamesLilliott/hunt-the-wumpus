@@ -50,18 +50,13 @@ class Game
         this.bats[0] = -1;
         this.bats[1] = -1;
 
-        Random rnd = new Random();
-        int x = rnd.Next(this.maxSize);
-        int y = rnd.Next(this.maxSize);
+        List<int[]> occupiedCells = new List<int[]>();
+        occupiedCells.Add(new int[]{this.wumpus[0], this.wumpus[1]});
+        occupiedCells.Add(new int[]{this.pit[0], this.pit[1]});
+        occupiedCells.Add(new int[]{this.player[0], this.player[1]}); // Add the player so you don't end up back on the same cell
 
-        while (this.IsCoordsOccupied(x, y))
-        {
-            x = rnd.Next(this.maxSize);
-            y = rnd.Next(this.maxSize);
-        } 
-
-        this.player[0] = x;
-        this.player[0] = y;
+        int[] cell = this.SelectUnoccupidCell(occupiedCells);
+        this.player[0] = cell[0]; this.player[1] = cell[1];
 
         return CommandResponse.MovedByBats;
     }
@@ -102,27 +97,31 @@ class Game
         switch (command)
         {
             case Command.MoveUp:
-                isValidMove = player[1] != this.maxSize;
-                if (isValidMove)
-                    player[1]++;
+                isValidMove = this.player[1] != this.maxSize;
+                if (isValidMove) {
+                    this.player[1]++;
+                }
                 break;
 
             case Command.MoveDown:
-                isValidMove = player[1] != 1;
-                if (isValidMove)
-                    player[1]--;
+                isValidMove = this.player[1] != 0;
+                if (isValidMove) {
+                    this.player[1]--;
+                }
                 break;
 
             case Command.MoveLeft:
-                isValidMove = player[0] != 1;
-                if (isValidMove)
-                    player[0]--;
+                isValidMove = this.player[0] != 0;
+                if (isValidMove) {
+                     this.player[0]--;
+                }
                 break;
 
             case Command.MoveRight:
-                isValidMove = player[0] != this.maxSize;
-                if (isValidMove)
-                    player[0]++;
+                isValidMove = this.player[0] != this.maxSize;
+                if (isValidMove) {
+                    this.player[0]++;
+                }
                 break;
         }
 
