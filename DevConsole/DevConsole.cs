@@ -1,66 +1,55 @@
-class ConsoleGame
+/**
+* A dev console to test changes made to GameRules
+*/
+class DevConsole
 {
     public Game game;
-    public ConsoleGame(Game game)
+    public DevConsole(Game game)
     {
         this.game = game;
     }
 
     public void run()
     {
-        this.welcomePlayer();
         this.renderLocation();
 
-        // add instructions here
         String input;
         while (!this.game.gameOver) {
             input = this.inputCommand();
             Command command = this.convertInputToCommand(input);
             CommandResponse commandResponse = game.processCommand(command);
+            Console.WriteLine(commandResponse);
             
-            if (commandResponse is CommandResponse.FailedToMove) {
-                Console.WriteLine("Unable to move that way");
-            }
+            // if (commandResponse is CommandResponse.FailedToMove) {
+            //     Console.WriteLine("Unable to move that way");
+            // }
 
-            if (commandResponse is CommandResponse.Moved) {
-                Console.WriteLine("You moved to the next cavern");
-            }
+            // if (commandResponse is CommandResponse.Moved) {
+            //     Console.WriteLine("You moved to the next cavern");
+            // }
 
-            if (commandResponse is CommandResponse.ShotHit) {
-                Console.WriteLine("You hit the Wumpus!");
-            }
+            // if (commandResponse is CommandResponse.ShotHit) {
+            //     Console.WriteLine("You hit the Wumpus!");
+            // }
 
-            if (commandResponse is CommandResponse.ShotMissed) {
-                Console.WriteLine("You missed the Wumpus!");
-            }
+            // if (commandResponse is CommandResponse.ShotMissed) {
+            //     Console.WriteLine("You missed the Wumpus!");
+            // }
 
-            if (commandResponse is CommandResponse.AteByWumpus) {
-                Console.WriteLine("You wandered into the Wumpus nest and got eaten!");
-            }
+            // if (commandResponse is CommandResponse.AteByWumpus) {
+            //     Console.WriteLine("You wandered into the Wumpus nest and got eaten!");
+            // }
 
-            if (commandResponse is CommandResponse.FellInPit) {
-                Console.WriteLine("You wandered into a pit and fell to your death!");
-            }
+            // if (commandResponse is CommandResponse.FellInPit) {
+            //     Console.WriteLine("You wandered into a pit and fell to your death!");
+            // }
 
-            if (commandResponse is CommandResponse.MovedByBats) {
-                Console.WriteLine("You wandered into a bat nest and got transported to a different cavern!");
-            }
+            // if (commandResponse is CommandResponse.MovedByBats) {
+            //     Console.WriteLine("You wandered into a bat nest and got transported to a different cavern!");
+            // }
 
             this.renderLocation();
         }
-    }
-
-    private void welcomePlayer()
-    {
-        Console.WriteLine("");
-        Console.WriteLine("////////////////"); Thread.Sleep(1000);
-        Console.WriteLine("//  WELCOME   //"); Thread.Sleep(1000);
-        Console.WriteLine("//    TO      //"); Thread.Sleep(1000);
-        Console.WriteLine("//   HUNT     //"); Thread.Sleep(500);
-        Console.WriteLine("//    THE     //"); Thread.Sleep(500);
-        Console.WriteLine("//   WUMPUS   //"); Thread.Sleep(500);
-        Console.WriteLine("////////////////"); Thread.Sleep(1000);
-        Console.WriteLine("");
     }
 
     private string inputCommand() 
@@ -115,15 +104,15 @@ class ConsoleGame
         
         CurrentLocation currentLocation = this.game.GetCurrentLocation();
         if (currentLocation.batDroppings) {
-            Console.WriteLine("Bat Droppings");
+            Console.WriteLine("Next to bats");
         }
 
         if (currentLocation.badOdur) {
-            Console.WriteLine("Bad odur");
+            Console.WriteLine("Next to wumpus");
         }
 
         if (currentLocation.gustsOfWind) {
-            Console.WriteLine("Gust of wind");
+            Console.WriteLine("Next to pit");
         }
     }
 }

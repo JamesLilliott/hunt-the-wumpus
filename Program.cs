@@ -5,7 +5,7 @@ Console.WriteLine("Booting Game");
 Game game = new Game();
 
 // Build Interface
-ConsoleGame consoleGame = new ConsoleGame(game);
+DevConsole consoleGame = new DevConsole(game);
 
 // Run the Game
 consoleGame.run();
