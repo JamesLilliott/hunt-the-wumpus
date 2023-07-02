@@ -4,11 +4,12 @@ class Game
     private int[] bats = new int[2];
     private int[] wumpus = new int[2];
     private int[] player = new int[2];
-    private int maxSize = 4;
+    private int maxSize;
     public Boolean gameOver;
     
-    public Game()
+    public Game(int mapSize = 4)
     { 
+        this.maxSize = mapSize;
         this.PlaceObsticlesAndPlayer();
         this.gameOver = false;
     }
