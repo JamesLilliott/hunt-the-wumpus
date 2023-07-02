@@ -126,8 +126,6 @@ class Game
         return isValidMove ? CommandResponse.Moved : CommandResponse.FailedToMove;
     }
 
-
-    
     private CommandResponse Shoot(Command command)
     {
         bool isShotHit = IsPlayerAdjacentToWumpus(command);
@@ -164,19 +162,6 @@ class Game
     private bool IsPlayerOn(int[] coords)
     {
         return this.player[0] == coords[0] & this.player[1] == coords[1];
-    }
-
-    private bool IsCoordsOccupied(int x, int y) 
-    {
-        if (this.pit[0] == x & this.pit[1] == y) {
-            return true;
-        }
-
-        if (this.wumpus[0] == x & this.wumpus[1] == y) {
-            return true;
-        }
-
-        return false;
     }
 
     private void PlaceObsticlesAndPlayer()
