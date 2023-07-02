@@ -17,24 +17,22 @@ class Game
     {
         if (command.isMove()) {
             CommandResponse commandResponse = this.MovePlayer(command);
-            if (commandResponse != CommandResponse.FailedToMove) {
                 
-                if (this.IsPlayerOn(this.wumpus)) {
-                    this.gameOver = true;
-                    return CommandResponse.AteByWumpus;
-                }
-
-                if (this.IsPlayerOn(this.bats)) {
-                    return BatsMovePlayer();
-                }
-
-                if (this.IsPlayerOn(this.pit)) {
-                    this.gameOver = true;
-                    return CommandResponse.FellInPit;
-                }
-
-                return commandResponse;
+            if (this.IsPlayerOn(this.wumpus)) {
+                this.gameOver = true;
+                return CommandResponse.AteByWumpus;
             }
+
+            if (this.IsPlayerOn(this.bats)) {
+                return BatsMovePlayer();
+            }
+
+            if (this.IsPlayerOn(this.pit)) {
+                this.gameOver = true;
+                return CommandResponse.FellInPit;
+            }
+
+            return commandResponse;
         }
 
         if (command.isShoot()) {
