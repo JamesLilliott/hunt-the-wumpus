@@ -477,4 +477,4 @@ $RECYCLE.BIN/
 *.lnk
 
 # Custom
-obj/Debug/net7.0
+obj/*
