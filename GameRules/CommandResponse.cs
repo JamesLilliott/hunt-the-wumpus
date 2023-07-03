@@ -1,11 +1,14 @@
-enum CommandResponse {
-    FailedToMove,
-    Moved,
-    MovedByBats,
-    AteByWumpus,
-    FellInPit,
-    ShotMissed,
-    ShotHit,
+namespace GameRules
+{
+    enum CommandResponse {
+        FailedToMove,
+        Moved,
+        MovedByBats,
+        AteByWumpus,
+        FellInPit,
+        ShotMissed,
+        ShotHit,
 
-    InvalidCommand,
+        InvalidCommand,
+    }
 }
