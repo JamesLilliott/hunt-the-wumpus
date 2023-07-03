@@ -1,4 +1,5 @@
 using HuntTheWumpusCore.GameRules;
+using HuntTheWumpusCore.GameRules.MapGenerator;
 
 namespace HuntTheWumpusCoreTest;
 
@@ -12,7 +13,9 @@ public class TestCanLoadGameRules
     [Test]
     public void LoadGame_Passes()
     {
-        Game game = new Game();
+        MapGenerator mapGenerator = new MapGenerator(4);
+    
+        Game game = new Game(mapGenerator);
         game.GetCurrentLocation();
         
         Assert.Pass();

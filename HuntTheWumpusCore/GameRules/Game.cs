@@ -1,3 +1,5 @@
+using HuntTheWumpusCore.GameRules.MapGenerator;
+
 namespace HuntTheWumpusCore.GameRules
 {
     public class Game 
@@ -6,13 +8,18 @@ namespace HuntTheWumpusCore.GameRules
         private int[] bats = new int[2];
         private int[] wumpus = new int[2];
         private int[] player = new int[2];
-        private int maxSize;
+        private int mapSize;
         public Boolean gameOver;
         
-        public Game(int mapSize = 4)
+        public Game(IMapGenerator mapGenerator)
         { 
-            this.maxSize = mapSize;
-            this.PlaceObsticlesAndPlayer();
+            this.mapSize = mapGenerator.getMapSize();
+            
+            this.player = mapGenerator.getPlayerLocation();
+            this.wumpus = mapGenerator.getWumpusLocation();
+            this.pit = mapGenerator.getPitLocation();
+            this.bats = mapGenerator.getBatsLocation();
+
             this.gameOver = false;
         }
 
@@ -98,7 +105,7 @@ namespace HuntTheWumpusCore.GameRules
             switch (command)
             {
                 case Command.MoveUp:
-                    isValidMove = this.player[1] != this.maxSize;
+                    isValidMove = this.player[1] != this.mapSize;
                     if (isValidMove) {
                         this.player[1]++;
                     }
@@ -119,7 +126,7 @@ namespace HuntTheWumpusCore.GameRules
                     break;
 
                 case Command.MoveRight:
-                    isValidMove = this.player[0] != this.maxSize;
+                    isValidMove = this.player[0] != this.mapSize;
                     if (isValidMove) {
                         this.player[0]++;
                     }
@@ -166,29 +173,6 @@ namespace HuntTheWumpusCore.GameRules
         {
             return this.player[0] == coords[0] & this.player[1] == coords[1];
         }
-
-        private void PlaceObsticlesAndPlayer()
-        {
-            List<int[]> occupiedCells = new List<int[]>();
-            int[] cell;
-            
-            cell = this.SelectUnoccupidCell(occupiedCells);
-            occupiedCells.Add(cell);
-            this.pit[0] = cell[0]; this.pit[1] = cell[1];
-
-            cell = this.SelectUnoccupidCell(occupiedCells);
-            occupiedCells.Add(cell);
-            this.bats[0] = cell[0]; this.bats[1] = cell[1];
-
-            cell = this.SelectUnoccupidCell(occupiedCells);
-            occupiedCells.Add(cell);
-            this.wumpus[0] = cell[0]; this.wumpus[1] = cell[1];
-
-            cell = this.SelectUnoccupidCell(occupiedCells);
-            occupiedCells.Add(cell);
-            this.player[0] = cell[0]; this.player[1] = cell[1];
-        }
-
         private int[] SelectUnoccupidCell(List<int[]> occupiedCells)
         {
             Random rnd = new Random();
@@ -198,8 +182,8 @@ namespace HuntTheWumpusCore.GameRules
             int y;
 
             do {
-                x = rnd.Next(this.maxSize);
-                y = rnd.Next(this.maxSize);
+                x = rnd.Next(this.mapSize);
+                y = rnd.Next(this.mapSize);
                 selectedCell = new int[2]{x, y};
                 
                 occupied = false;
