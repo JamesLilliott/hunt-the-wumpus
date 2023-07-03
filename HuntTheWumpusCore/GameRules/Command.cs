@@ -1,6 +1,6 @@
 namespace HuntTheWumpusCore.GameRules
 {
-    enum Command {
+    public enum Command {
         MoveLeft,
         MoveRight,
         MoveUp,

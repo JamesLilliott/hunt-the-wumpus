@@ -1,6 +1,6 @@
 namespace HuntTheWumpusCore.GameRules
 {
-    class Game 
+    public class Game 
     {
         private int[] pit = new int[2];
         private int[] bats = new int[2];

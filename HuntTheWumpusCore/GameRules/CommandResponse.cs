@@ -1,6 +1,6 @@
 namespace HuntTheWumpusCore.GameRules
 {
-    enum CommandResponse {
+    public enum CommandResponse {
         FailedToMove,
         Moved,
         MovedByBats,

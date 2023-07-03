@@ -1,6 +1,6 @@
 namespace HuntTheWumpusCore.GameRules
 {
-    class CurrentLocation 
+    public class CurrentLocation 
     {
         public bool batDroppings;
         public bool badOdur;
