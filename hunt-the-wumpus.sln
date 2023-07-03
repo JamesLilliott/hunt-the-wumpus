@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hunt-the-wumpus", "HuntTheWumpusCore\hunt-the-wumpus.csproj", "{1E3C3875-C8AF-4BA9-B162-573F209A5EB4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HuntTheWumpusCoreTest", "HuntTheWumpusCoreTest\HuntTheWumpusCoreTest.csproj", "{8BD78466-A184-43D0-AC78-5C4F8FECE342}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{1E3C3875-C8AF-4BA9-B162-573F209A5EB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E3C3875-C8AF-4BA9-B162-573F209A5EB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E3C3875-C8AF-4BA9-B162-573F209A5EB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BD78466-A184-43D0-AC78-5C4F8FECE342}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BD78466-A184-43D0-AC78-5C4F8FECE342}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BD78466-A184-43D0-AC78-5C4F8FECE342}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BD78466-A184-43D0-AC78-5C4F8FECE342}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
