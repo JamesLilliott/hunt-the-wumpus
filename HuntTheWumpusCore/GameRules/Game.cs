@@ -1,4 +1,4 @@
-namespace GameRules
+namespace HuntTheWumpusCore.GameRules
 {
     class Game 
     {

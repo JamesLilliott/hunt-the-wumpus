@@ -1,9 +1,9 @@
 
-using GameRules;
+using HuntTheWumpusCore.GameRules;
 /**
 * A dev console to test changes made to GameRules
 */
-namespace Dev
+namespace HuntTheWumpusCore.Dev
 {
     class DevConsole
     {

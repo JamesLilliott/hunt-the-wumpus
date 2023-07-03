@@ -1,5 +1,5 @@
-﻿using Dev;
-using GameRules;
+﻿using HuntTheWumpusCore.Dev;
+using HuntTheWumpusCore.GameRules;
 
 Console.WriteLine("Booting Game");
 
