@@ -20,4 +20,18 @@ public class TestCanLoadGameRules
         
         Assert.Pass();
     }
+
+    [Test]
+    public void LoadGameWithDevMap_MovePlayerToWumpus_GameOver()
+    {
+        // Arrange - Arrange the player next to the wumpus
+        IMapGenerator devMap = new TestMapGenerator(4, new int[]{1, 1}, new int[]{1, 2}, new int[]{1, 3}, new int[]{2,3});
+        Game game = new Game(devMap);
+
+        // Act - Move the player into the wumpus
+        CommandResponse CommandResponse = game.processCommand(Command.MoveLeft);
+
+        // Assert the game is over
+        Assert.AreEqual(true, game.gameOver);
+    }
 }
