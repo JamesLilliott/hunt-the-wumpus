@@ -11,7 +11,7 @@ public class TestMoving
     }
 
     [Test]
-    public void LoadGameWithDevMap__MoveAround_HitWall()
+    public void LoadGameWithDevMap_MoveAround_HitWall()
     {
         // Arrange - Hide all the entities and place the player
         IMapGenerator devMap = new TestMapGenerator(4, new int[]{-1, -1}, new int[]{-1, -1}, new int[]{-1, -1}, new int[]{0, 1});
