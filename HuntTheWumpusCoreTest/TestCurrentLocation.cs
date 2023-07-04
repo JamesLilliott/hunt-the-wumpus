@@ -39,7 +39,7 @@ public class TestCurrentLocation
         CommandResponse commandResponse = game.processCommand(Command.MoveDown);
         CurrentLocation currentLocation = game.GetCurrentLocation();
 
-        // Assert the bats are nearby
+        // Assert the pit are nearby
         Assert.AreEqual(CommandResponse.Moved, commandResponse);
         Assert.IsTrue(currentLocation.gustsOfWind);
         Assert.IsFalse(currentLocation.badOdur);
@@ -57,7 +57,7 @@ public class TestCurrentLocation
         CommandResponse commandResponse = game.processCommand(Command.MoveDown);
         CurrentLocation currentLocation = game.GetCurrentLocation();
 
-        // Assert the bats are nearby
+        // Assert the wumpus are nearby
         Assert.AreEqual(CommandResponse.Moved, commandResponse);
         Assert.IsTrue(currentLocation.badOdur);
         Assert.IsFalse(currentLocation.gustsOfWind);
@@ -75,7 +75,7 @@ public class TestCurrentLocation
         CommandResponse commandResponse = game.processCommand(Command.MoveLeft);
         CurrentLocation currentLocation = game.GetCurrentLocation();
 
-        // Assert the bats are nearby
+        // Assert the bats, wumpus and pit are nearby
         Assert.AreEqual(CommandResponse.Moved, commandResponse);
         Assert.IsTrue(currentLocation.badOdur);
         Assert.IsTrue(currentLocation.gustsOfWind);
