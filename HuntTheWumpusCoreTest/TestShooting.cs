@@ -22,7 +22,7 @@ public class TestShooting
 
         // Assert - Hit
         Assert.AreEqual(CommandResponse.ShotHit, commandResponse);
-        Assert.AreEqual(true, game.gameOver);
+        Assert.AreEqual(true, game.GameOver);
     }
 
     [Test]
@@ -37,7 +37,7 @@ public class TestShooting
 
         // Assert - Hit
         Assert.AreEqual(CommandResponse.ShotHit, commandResponse);
-        Assert.AreEqual(true, game.gameOver);
+        Assert.AreEqual(true, game.GameOver);
     } 
 
     [Test]
@@ -52,7 +52,7 @@ public class TestShooting
 
         // Assert - Hit
         Assert.AreEqual(CommandResponse.ShotHit, commandResponse);
-        Assert.AreEqual(true, game.gameOver);
+        Assert.AreEqual(true, game.GameOver);
     }   
 
     [Test]
@@ -67,7 +67,7 @@ public class TestShooting
 
         // Assert - Hit
         Assert.AreEqual(CommandResponse.ShotHit, commandResponse);
-        Assert.AreEqual(true, game.gameOver);
+        Assert.AreEqual(true, game.GameOver);
     } 
 
     [Test]
@@ -82,6 +82,6 @@ public class TestShooting
 
         // Assert - Hit
         Assert.AreEqual(CommandResponse.ShotMissed, commandResponse);
-        Assert.AreEqual(false, game.gameOver);
+        Assert.AreEqual(false, game.GameOver);
     }   
 }

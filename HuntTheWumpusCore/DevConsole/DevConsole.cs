@@ -18,7 +18,7 @@ namespace HuntTheWumpusCore.Dev
             this.renderLocation();
 
             String input;
-            while (!this.game.gameOver) {
+            while (!this.game.GameOver) {
                 input = this.inputCommand();
                 Command command = this.convertInputToCommand(input);
                 CommandResponse commandResponse = game.processCommand(command);
@@ -73,7 +73,7 @@ namespace HuntTheWumpusCore.Dev
 
         private void renderLocation()
         {
-            if (this.game.gameOver) {
+            if (this.game.GameOver) {
                 Console.WriteLine("Game Over!");
                 return;
             }

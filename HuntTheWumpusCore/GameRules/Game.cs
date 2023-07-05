@@ -4,23 +4,23 @@ namespace HuntTheWumpusCore.GameRules
 {
     public class Game 
     {
-        private int[] pit = new int[2];
-        private int[] bats = new int[2];
-        private int[] wumpus = new int[2];
-        private int[] player = new int[2];
-        private int mapSize;
-        public Boolean gameOver;
+        private int[] _pit;
+        private int[] _bats;
+        private int[] _wumpus;
+        private int[] _player;
+        private int _mapSize;
+        public Boolean GameOver;
         
         public Game(IMapGenerator mapGenerator)
         { 
-            this.mapSize = mapGenerator.getMapSize();
+            this._mapSize = mapGenerator.getMapSize();
             
-            this.player = mapGenerator.getPlayerLocation();
-            this.wumpus = mapGenerator.getWumpusLocation();
-            this.pit = mapGenerator.getPitLocation();
-            this.bats = mapGenerator.getBatsLocation();
+            this._player = mapGenerator.getPlayerLocation();
+            this._wumpus = mapGenerator.getWumpusLocation();
+            this._pit = mapGenerator.getPitLocation();
+            this._bats = mapGenerator.getBatsLocation();
 
-            this.gameOver = false;
+            this.GameOver = false;
         }
 
         public CommandResponse processCommand(Command command)
@@ -28,17 +28,17 @@ namespace HuntTheWumpusCore.GameRules
             if (command.isMove()) {
                 CommandResponse commandResponse = this.MovePlayer(command);
                     
-                if (this.IsPlayerOn(this.wumpus)) {
-                    this.gameOver = true;
+                if (this.IsPlayerOn(this._wumpus)) {
+                    this.GameOver = true;
                     return CommandResponse.AteByWumpus;
                 }
 
-                if (this.IsPlayerOn(this.bats)) {
+                if (this.IsPlayerOn(this._bats)) {
                     return BatsMovePlayer();
                 }
 
-                if (this.IsPlayerOn(this.pit)) {
-                    this.gameOver = true;
+                if (this.IsPlayerOn(this._pit)) {
+                    this.GameOver = true;
                     return CommandResponse.FellInPit;
                 }
 
@@ -55,16 +55,16 @@ namespace HuntTheWumpusCore.GameRules
 
         private CommandResponse BatsMovePlayer()
         {
-            this.bats[0] = -1;
-            this.bats[1] = -1;
+            this._bats[0] = -1;
+            this._bats[1] = -1;
 
             List<int[]> occupiedCells = new List<int[]>();
-            occupiedCells.Add(new int[]{this.wumpus[0], this.wumpus[1]});
-            occupiedCells.Add(new int[]{this.pit[0], this.pit[1]});
-            occupiedCells.Add(new int[]{this.player[0], this.player[1]}); // Add the player so you don't end up back on the same cell
+            occupiedCells.Add(new int[]{this._wumpus[0], this._wumpus[1]});
+            occupiedCells.Add(new int[]{this._pit[0], this._pit[1]});
+            occupiedCells.Add(new int[]{this._player[0], this._player[1]}); // Add the player so you don't end up back on the same cell
 
-            int[] cell = this.SelectUnoccupidCell(occupiedCells);
-            this.player[0] = cell[0]; this.player[1] = cell[1];
+            int[] cell = this.SelectUnoccupiedCell(occupiedCells);
+            this._player[0] = cell[0]; this._player[1] = cell[1];
 
             return CommandResponse.MovedByBats;
         }
@@ -72,28 +72,28 @@ namespace HuntTheWumpusCore.GameRules
         public CurrentLocation GetCurrentLocation()
         {
             return new CurrentLocation(
-                this.isPlayerNextTo(this.bats),
-                this.isPlayerNextTo(this.wumpus),
-                this.isPlayerNextTo(this.pit)
+                this.IsPlayerNextTo(this._bats),
+                this.IsPlayerNextTo(this._wumpus),
+                this.IsPlayerNextTo(this._pit)
             );
         }
 
-        private bool isPlayerNextTo(int[] coords)
+        private bool IsPlayerNextTo(int[] coords)
         {
             // Do x coords match and y off by one?
-            if (coords[0] == this.player[0] && this.areCoordsNextToEachOther(this.player[1], coords[1])) {
+            if (coords[0] == this._player[0] && this.AreCoordsNextToEachOther(this._player[1], coords[1])) {
                 return true;
             }
 
             // Do y coords match and x off by one?
-            if (coords[1] == this.player[1] && this.areCoordsNextToEachOther(this.player[0], coords[0])) {
+            if (coords[1] == this._player[1] && this.AreCoordsNextToEachOther(this._player[0], coords[0])) {
                 return true;
             }
 
             return false;
         }
 
-        private bool areCoordsNextToEachOther(int x, int y)
+        private bool AreCoordsNextToEachOther(int x, int y)
         {
             return (x - y) == 1 || (y - x) == 1;
         }
@@ -105,30 +105,30 @@ namespace HuntTheWumpusCore.GameRules
             switch (command)
             {
                 case Command.MoveUp:
-                    isValidMove = this.player[1] != this.mapSize;
+                    isValidMove = this._player[1] != this._mapSize;
                     if (isValidMove) {
-                        this.player[1]++;
+                        this._player[1]++;
                     }
                     break;
 
                 case Command.MoveDown:
-                    isValidMove = this.player[1] != 0;
+                    isValidMove = this._player[1] != 0;
                     if (isValidMove) {
-                        this.player[1]--;
+                        this._player[1]--;
                     }
                     break;
 
                 case Command.MoveLeft:
-                    isValidMove = this.player[0] != 0;
+                    isValidMove = this._player[0] != 0;
                     if (isValidMove) {
-                        this.player[0]--;
+                        this._player[0]--;
                     }
                     break;
 
                 case Command.MoveRight:
-                    isValidMove = this.player[0] != this.mapSize;
+                    isValidMove = this._player[0] != this._mapSize;
                     if (isValidMove) {
-                        this.player[0]++;
+                        this._player[0]++;
                     }
                     break;
             }
@@ -142,7 +142,7 @@ namespace HuntTheWumpusCore.GameRules
 
             if (isShotHit)  
             {
-                gameOver = true;
+                GameOver = true;
                 return CommandResponse.ShotHit;
             }
 
@@ -154,16 +154,16 @@ namespace HuntTheWumpusCore.GameRules
             switch (command)
             {
                 case Command.ShootUp:
-                    return player[0] == wumpus[0] && player[1] + 1 == wumpus[1];
+                    return _player[0] == _wumpus[0] && _player[1] + 1 == _wumpus[1];
 
                 case Command.ShootDown:
-                    return player[0] == wumpus[0] && player[1] - 1 == wumpus[1];
+                    return _player[0] == _wumpus[0] && _player[1] - 1 == _wumpus[1];
 
                 case Command.ShootLeft:
-                    return player[1] == wumpus[1] && player[0] - 1 == wumpus[0];
+                    return _player[1] == _wumpus[1] && _player[0] - 1 == _wumpus[0];
 
                 case Command.ShootRight:
-                    return player[1] == wumpus[1] && player[0] + 1 == wumpus[0];
+                    return _player[1] == _wumpus[1] && _player[0] + 1 == _wumpus[0];
             }
 
             return false; // Default case, should never be reached
@@ -171,9 +171,9 @@ namespace HuntTheWumpusCore.GameRules
 
         private bool IsPlayerOn(int[] coords)
         {
-            return this.player[0] == coords[0] & this.player[1] == coords[1];
+            return this._player[0] == coords[0] & this._player[1] == coords[1];
         }
-        private int[] SelectUnoccupidCell(List<int[]> occupiedCells)
+        private int[] SelectUnoccupiedCell(List<int[]> occupiedCells)
         {
             Random rnd = new Random();
             bool occupied;
@@ -182,8 +182,8 @@ namespace HuntTheWumpusCore.GameRules
             int y;
 
             do {
-                x = rnd.Next(this.mapSize);
-                y = rnd.Next(this.mapSize);
+                x = rnd.Next(this._mapSize);
+                y = rnd.Next(this._mapSize);
                 selectedCell = new int[2]{x, y};
                 
                 occupied = false;

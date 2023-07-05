@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HuntTheWumpusCore\hunt-the-wumpus.csproj" />
+    <ProjectReference Include="..\HuntTheWumpusCore\HuntTheWumpusCore.csproj" />
   </ItemGroup>
 
 </Project>

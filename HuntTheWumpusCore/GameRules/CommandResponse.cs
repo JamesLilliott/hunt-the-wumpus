@@ -8,7 +8,6 @@ namespace HuntTheWumpusCore.GameRules
         FellInPit,
         ShotMissed,
         ShotHit,
-
         InvalidCommand,
     }
 }

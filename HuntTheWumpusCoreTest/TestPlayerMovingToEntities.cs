@@ -33,7 +33,7 @@ public class TestPlayerMovingToEntities
 
         // Assert the game is over
         Assert.AreEqual(CommandResponse.AteByWumpus, commandResponse);
-        Assert.AreEqual(true, game.gameOver);
+        Assert.AreEqual(true, game.GameOver);
     }
 
     [Test]
@@ -48,7 +48,7 @@ public class TestPlayerMovingToEntities
 
         // Assert the game is over
         Assert.AreEqual(CommandResponse.FellInPit, commandResponse);
-        Assert.AreEqual(true, game.gameOver);
+        Assert.AreEqual(true, game.GameOver);
     }
 
     [Test]
