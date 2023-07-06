@@ -8,4 +8,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <PackageId>jameslilliott.HuntTheWumpusCore</PackageId>
+    <Version>1.0.0</Version>
+    <Description>Core rules for my implementation of Hunt the Wumpus</Description>
+    <Authors>James Lilliott</Authors>
+    <PackageProjectUrl>https://github.com/JamesLilliott/hunt-the-wumpus</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/JamesLilliott/hunt-the-wumpus</RepositoryUrl>
+  </PropertyGroup>
+
 </Project>
