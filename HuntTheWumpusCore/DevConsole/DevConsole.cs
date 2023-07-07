@@ -15,48 +15,52 @@ namespace HuntTheWumpusCore.Dev
 
         public void run()
         {
-            this.renderLocation();
+            this.RenderLocation();
 
             String input;
             while (!this.game.GameOver) {
-                input = this.inputCommand();
-                Command command = this.convertInputToCommand(input);
+                input = InputCommand();
+                Command command = this.ConvertInputToCommand(input);
                 CommandResponse commandResponse = game.processCommand(command);
-                
-                if (commandResponse is CommandResponse.FailedToMove) {
-                    Console.WriteLine("Unable to move that way");
-                }
 
-                if (commandResponse is CommandResponse.Moved) {
-                    Console.WriteLine("You moved to the next cavern");
-                }
-
-                if (commandResponse is CommandResponse.ShotHit) {
-                    Console.WriteLine("You hit the Wumpus!");
-                }
-
-                if (commandResponse is CommandResponse.ShotMissed) {
-                    Console.WriteLine("You missed the Wumpus!");
-                }
-
-                if (commandResponse is CommandResponse.AteByWumpus) {
-                    Console.WriteLine("You wandered into the Wumpus nest and got eaten!");
-                }
-
-                if (commandResponse is CommandResponse.FellInPit) {
-                    Console.WriteLine("You wandered into a pit and fell to your death!");
-                }
-
-                if (commandResponse is CommandResponse.MovedByBats) {
-                    Console.WriteLine("You wandered into a bat nest and got transported to a different cavern!");
-                }
-                
-
-                this.renderLocation();
+                this.DescribeResponse(commandResponse);
+                this.RenderLocation();
             }
         }
 
-        private string inputCommand() 
+        private void DescribeResponse(CommandResponse commandResponse)
+        {
+            switch (commandResponse)
+            {
+                case CommandResponse.FailedToMove:
+                    Console.WriteLine("Unable to move that way");
+                    break;
+                case CommandResponse.Moved:
+                    Console.WriteLine("You moved to the next cavern");
+                    break;
+                case CommandResponse.MovedByBats:
+                    Console.WriteLine("You wandered into a bat nest and got transported to a different cavern!");
+                    break;
+                case CommandResponse.AteByWumpus:
+                    Console.WriteLine("You wandered into the Wumpus nest and got eaten!");
+                    break;
+                case CommandResponse.FellInPit:
+                    Console.WriteLine("You wandered into a pit and fell to your death!");
+                    break;
+                case CommandResponse.ShotMissed:
+                    Console.WriteLine("You missed the Wumpus!");
+                    break;
+                case CommandResponse.ShotHit:
+                    Console.WriteLine("You hit the Wumpus!");
+                    break;
+                case CommandResponse.InvalidCommand:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private string InputCommand() 
         {
             Boolean validInput = false;
             String[] validInputs = {"move up", "move down", "move left", "move right", "shoot up", "shoot down", "shoot right", "shoot left"};
@@ -87,7 +91,7 @@ namespace HuntTheWumpusCore.Dev
             return input;
         }
 
-        private Command convertInputToCommand(string input) => input switch {
+        private Command ConvertInputToCommand(string input) => input switch {
             "move left" => Command.MoveLeft,
             "move right" => Command.MoveRight,
             "move up" => Command.MoveUp,
@@ -99,7 +103,7 @@ namespace HuntTheWumpusCore.Dev
             _ => throw new Exception("Invalid Command"),
         };
 
-        private void renderLocation()
+        private void RenderLocation()
         {
             if (this.game.GameOver) {
                 Console.WriteLine("Game Over!");
