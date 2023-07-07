@@ -22,7 +22,35 @@ namespace HuntTheWumpusCore.Dev
                 input = this.inputCommand();
                 Command command = this.convertInputToCommand(input);
                 CommandResponse commandResponse = game.processCommand(command);
-                Console.WriteLine("commandResponse: " + commandResponse);
+                
+                if (commandResponse is CommandResponse.FailedToMove) {
+                    Console.WriteLine("Unable to move that way");
+                }
+
+                if (commandResponse is CommandResponse.Moved) {
+                    Console.WriteLine("You moved to the next cavern");
+                }
+
+                if (commandResponse is CommandResponse.ShotHit) {
+                    Console.WriteLine("You hit the Wumpus!");
+                }
+
+                if (commandResponse is CommandResponse.ShotMissed) {
+                    Console.WriteLine("You missed the Wumpus!");
+                }
+
+                if (commandResponse is CommandResponse.AteByWumpus) {
+                    Console.WriteLine("You wandered into the Wumpus nest and got eaten!");
+                }
+
+                if (commandResponse is CommandResponse.FellInPit) {
+                    Console.WriteLine("You wandered into a pit and fell to your death!");
+                }
+
+                if (commandResponse is CommandResponse.MovedByBats) {
+                    Console.WriteLine("You wandered into a bat nest and got transported to a different cavern!");
+                }
+                
 
                 this.renderLocation();
             }
