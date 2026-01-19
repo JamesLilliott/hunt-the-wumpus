@@ -22,10 +22,10 @@ public class TestCurrentLocation
         CurrentLocation currentLocation = game.GetCurrentLocation();
 
         // Assert the bats are nearby
-        Assert.AreEqual(CommandResponse.Moved, commandResponse);
-        Assert.IsTrue(currentLocation.BatDroppings);
-        Assert.IsFalse(currentLocation.BadOdour);
-        Assert.IsFalse(currentLocation.GustsOfWind);
+        Assert.That(commandResponse, Is.EqualTo(CommandResponse.Moved));
+        Assert.That(currentLocation.BatDroppings, Is.True);
+        Assert.That(currentLocation.BadOdour, Is.False);
+        Assert.That(currentLocation.GustsOfWind, Is.False);
     }
 
     [Test]
@@ -40,10 +40,10 @@ public class TestCurrentLocation
         CurrentLocation currentLocation = game.GetCurrentLocation();
 
         // Assert the pit are nearby
-        Assert.AreEqual(CommandResponse.Moved, commandResponse);
-        Assert.IsTrue(currentLocation.GustsOfWind);
-        Assert.IsFalse(currentLocation.BadOdour);
-        Assert.IsFalse(currentLocation.BatDroppings);
+        Assert.That(commandResponse, Is.EqualTo(CommandResponse.Moved));
+        Assert.That(currentLocation.GustsOfWind, Is.True);
+        Assert.That(currentLocation.BadOdour, Is.False);
+        Assert.That(currentLocation.BatDroppings, Is.False);
     }
 
     [Test]
@@ -58,10 +58,10 @@ public class TestCurrentLocation
         CurrentLocation currentLocation = game.GetCurrentLocation();
 
         // Assert the wumpus are nearby
-        Assert.AreEqual(CommandResponse.Moved, commandResponse);
-        Assert.IsTrue(currentLocation.BadOdour);
-        Assert.IsFalse(currentLocation.GustsOfWind);
-        Assert.IsFalse(currentLocation.BatDroppings);
+        Assert.That(commandResponse, Is.EqualTo(CommandResponse.Moved));
+        Assert.That(currentLocation.BadOdour, Is.True);
+        Assert.That(currentLocation.GustsOfWind, Is.False);
+        Assert.That(currentLocation.BatDroppings, Is.False);
     }
 
     [Test]
@@ -76,10 +76,10 @@ public class TestCurrentLocation
         CurrentLocation currentLocation = game.GetCurrentLocation();
 
         // Assert the bats, wumpus and pit are nearby
-        Assert.AreEqual(CommandResponse.Moved, commandResponse);
-        Assert.IsTrue(currentLocation.BadOdour);
-        Assert.IsTrue(currentLocation.GustsOfWind);
-        Assert.IsTrue(currentLocation.BatDroppings);
+        Assert.That(commandResponse, Is.EqualTo(CommandResponse.Moved));
+        Assert.That(currentLocation.BadOdour, Is.True);
+        Assert.That(currentLocation.GustsOfWind, Is.True);
+        Assert.That(currentLocation.BatDroppings, Is.True);
     }
     
 }

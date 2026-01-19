@@ -32,8 +32,8 @@ public class TestPlayerMovingToEntities
         CommandResponse commandResponse = game.ProcessCommand(Command.MoveLeft);
 
         // Assert the game is over
-        Assert.AreEqual(CommandResponse.AteByWumpus, commandResponse);
-        Assert.AreEqual(true, game.GameOver);
+        Assert.That(commandResponse, Is.EqualTo(CommandResponse.AteByWumpus));
+        Assert.That(game.GameOver, Is.EqualTo(true));
     }
 
     [Test]
@@ -47,8 +47,8 @@ public class TestPlayerMovingToEntities
         CommandResponse commandResponse = game.ProcessCommand(Command.MoveLeft);
 
         // Assert the game is over
-        Assert.AreEqual(CommandResponse.FellInPit, commandResponse);
-        Assert.AreEqual(true, game.GameOver);
+        Assert.That(commandResponse, Is.EqualTo(CommandResponse.FellInPit));
+        Assert.That(game.GameOver, Is.EqualTo(true));
     }
 
     [Test]
@@ -62,6 +62,6 @@ public class TestPlayerMovingToEntities
         CommandResponse commandResponse = game.ProcessCommand(Command.MoveLeft);
 
         // Assert the game is over
-        Assert.AreEqual(CommandResponse.MovedByBats, commandResponse);
+        Assert.That(commandResponse, Is.EqualTo(CommandResponse.MovedByBats));
     }
 }

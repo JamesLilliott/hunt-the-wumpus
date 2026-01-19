@@ -21,18 +21,18 @@ public class TestMoving
         CommandResponse commandResponse;
         
         commandResponse = game.ProcessCommand(Command.MoveDown);
-        Assert.AreEqual(CommandResponse.Moved, commandResponse);
+        Assert.That(commandResponse, Is.EqualTo(CommandResponse.Moved));
         
         commandResponse = game.ProcessCommand(Command.MoveUp);
-        Assert.AreEqual(CommandResponse.Moved, commandResponse);
+        Assert.That(commandResponse, Is.EqualTo(CommandResponse.Moved));
         
         commandResponse = game.ProcessCommand(Command.MoveRight);
-        Assert.AreEqual(CommandResponse.Moved, commandResponse);
+        Assert.That(commandResponse, Is.EqualTo(CommandResponse.Moved));
         
         commandResponse = game.ProcessCommand(Command.MoveLeft);
-        Assert.AreEqual(CommandResponse.Moved, commandResponse);
+        Assert.That(commandResponse, Is.EqualTo(CommandResponse.Moved));
         
         commandResponse = game.ProcessCommand(Command.MoveLeft);
-        Assert.AreEqual(CommandResponse.FailedToMove, commandResponse); // hit the wall        
+        Assert.That(commandResponse, Is.EqualTo(CommandResponse.FailedToMove)); // hit the wall        
     }   
 }

@@ -1,3 +1,5 @@
+using HuntTheWumpusCore.GameRules.Models;
+
 namespace HuntTheWumpusCore.GameRules.MapGenerator
 {
     public class TestMapGenerator : IMapGenerator
@@ -18,27 +20,27 @@ namespace HuntTheWumpusCore.GameRules.MapGenerator
         
         public int GetMapSize()
         {
-            return this.mapSize;
+            return mapSize;
         }
 
-        public int[] GetBatsLocation()
+        public Position GetBatsLocation()
         {
-            return new int[]{this.bats[0], this.bats[1]};
+            return new Position(bats[0], bats[1]);
         }
 
-        public int[] GetPitLocation()
+        public Position GetPitLocation()
         {
-            return new int[]{this.pit[0], this.pit[1]};
+            return new Position(pit[0], pit[1]);
         }
 
-        public int[] GetPlayerLocation()
+        public Position GetPlayerLocation()
         {
-            return new int[]{this.player[0], this.player[1]};
+            return new Position(player[0], player[1]);
         }
 
-        public int[] GetWumpusLocation()
+        public Position GetWumpusLocation()
         {
-            return new int[]{this.wumpus[0], this.wumpus[1]};
+            return new Position(wumpus[0], wumpus[1]);
         }
     }
 }

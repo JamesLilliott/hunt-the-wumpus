@@ -21,8 +21,8 @@ public class TestShooting
         CommandResponse commandResponse = game.ProcessCommand(Command.ShootLeft);
 
         // Assert - Hit
-        Assert.AreEqual(CommandResponse.ShotHit, commandResponse);
-        Assert.AreEqual(true, game.GameOver);
+        Assert.That(commandResponse, Is.EqualTo(CommandResponse.ShotHit));
+        Assert.That(game.GameOver, Is.EqualTo(true));
     }
 
     [Test]
@@ -36,8 +36,8 @@ public class TestShooting
         CommandResponse commandResponse = game.ProcessCommand(Command.ShootRight);
 
         // Assert - Hit
-        Assert.AreEqual(CommandResponse.ShotHit, commandResponse);
-        Assert.AreEqual(true, game.GameOver);
+        Assert.That(commandResponse, Is.EqualTo(CommandResponse.ShotHit));
+        Assert.That(game.GameOver, Is.EqualTo(true));
     } 
 
     [Test]
@@ -51,8 +51,8 @@ public class TestShooting
         CommandResponse commandResponse = game.ProcessCommand(Command.ShootUp);
 
         // Assert - Hit
-        Assert.AreEqual(CommandResponse.ShotHit, commandResponse);
-        Assert.AreEqual(true, game.GameOver);
+        Assert.That(commandResponse, Is.EqualTo(CommandResponse.ShotHit));
+        Assert.That(game.GameOver, Is.EqualTo(true));
     }   
 
     [Test]
@@ -66,8 +66,8 @@ public class TestShooting
         CommandResponse commandResponse = game.ProcessCommand(Command.ShootDown);
 
         // Assert - Hit
-        Assert.AreEqual(CommandResponse.ShotHit, commandResponse);
-        Assert.AreEqual(true, game.GameOver);
+        Assert.That(commandResponse, Is.EqualTo(CommandResponse.ShotHit));
+        Assert.That(game.GameOver, Is.EqualTo(true));
     } 
 
     [Test]
@@ -81,7 +81,7 @@ public class TestShooting
         CommandResponse commandResponse = game.ProcessCommand(Command.ShootDown);
 
         // Assert - Hit
-        Assert.AreEqual(CommandResponse.ShotMissed, commandResponse);
-        Assert.AreEqual(false, game.GameOver);
+        Assert.That(commandResponse, Is.EqualTo(CommandResponse.ShotMissed));
+        Assert.That(game.GameOver, Is.EqualTo(false));
     }   
 }
