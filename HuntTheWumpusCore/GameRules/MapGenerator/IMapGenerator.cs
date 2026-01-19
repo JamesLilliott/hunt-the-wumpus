@@ -13,5 +13,7 @@ namespace HuntTheWumpusCore.GameRules.MapGenerator
         public Position GetBatsLocation();
 
         public Position GetPlayerLocation();
+        
+        public Map GetMap();
     }
 }

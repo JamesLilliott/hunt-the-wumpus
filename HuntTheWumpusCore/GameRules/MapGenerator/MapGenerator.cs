@@ -16,8 +16,8 @@ namespace HuntTheWumpusCore.GameRules.MapGenerator
         
         public MapGenerator(int mapSize)
         {
-            _mapSize = mapSize;
             PlaceObstaclesAndPlayer();
+            _mapSize = mapSize;
         }
         
         public int GetMapSize()
@@ -45,28 +45,33 @@ namespace HuntTheWumpusCore.GameRules.MapGenerator
             return _wumpus;
         }
 
+        public Map GetMap()
+        {
+            return new Map(_mapSize, _pit, _bats, _wumpus);
+        }
+
         private void PlaceObstaclesAndPlayer()
         {
             var occupiedPositions = new List<Position>();
 
-            var cell = SelectUnoccupiedCell(occupiedPositions);
+            var cell = SelectUnoccupiedPosition(occupiedPositions);
             occupiedPositions.Add(cell);
             _pit = cell;
 
-            cell = SelectUnoccupiedCell(occupiedPositions);
+            cell = SelectUnoccupiedPosition(occupiedPositions);
             occupiedPositions.Add(cell);
             _bats = cell;
 
-            cell = SelectUnoccupiedCell(occupiedPositions);
+            cell = SelectUnoccupiedPosition(occupiedPositions);
             occupiedPositions.Add(cell);
             _wumpus = cell;
 
-            cell = SelectUnoccupiedCell(occupiedPositions);
+            cell = SelectUnoccupiedPosition(occupiedPositions);
             occupiedPositions.Add(cell);
             _player = cell;
         }
 
-        private Position SelectUnoccupiedCell(List<Position> occupiedPositions)
+        private Position SelectUnoccupiedPosition(List<Position> occupiedPositions)
         {
             var rnd = new Random();
             bool occupied;

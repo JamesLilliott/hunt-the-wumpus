@@ -5,28 +5,27 @@ namespace HuntTheWumpusCore.GameRules
 {
     public class Game(IMapGenerator mapGenerator)
     {
-        private Position _pit = mapGenerator.GetPitLocation();
-        private Position _bats = mapGenerator.GetBatsLocation();
-        private Position _wumpus = mapGenerator.GetWumpusLocation();
-        private Position _player = mapGenerator.GetPlayerLocation();
+        public bool GameOver;
         private int _mapSize = mapGenerator.GetMapSize();
-        public bool GameOver = false;
+
+        private Map _map = mapGenerator.GetMap();
+        private Position _player = mapGenerator.GetPlayerLocation();
 
         public CommandResponse ProcessCommand(Command command)
         {
             if (command.IsMove()) {
                 var commandResponse = MovePlayer(command);
                     
-                if (IsPlayerOn(_wumpus)) {
+                if (IsPlayerOn(_map.Wumpus)) {
                     GameOver = true;
                     return CommandResponse.AteByWumpus;
                 }
 
-                if (IsPlayerOn(_bats)) {
+                if (IsPlayerOn(_map.Bats)) {
                     return BatsMovePlayer();
                 }
 
-                if (IsPlayerOn(_pit)) {
+                if (IsPlayerOn(_map.Pit)) {
                     GameOver = true;
                     return CommandResponse.FellInPit;
                 }
@@ -44,18 +43,8 @@ namespace HuntTheWumpusCore.GameRules
 
         private CommandResponse BatsMovePlayer()
         {
-            _bats.X = -1;
-            _bats.Y = -1;
-
-            var occupiedCells = new List<int[]>
-            {
-                new[] { _wumpus.X, _wumpus.Y },
-                new[] { _pit.X, _pit.Y },
-                new[] {_player.X, _player.Y} // Add the player, so you don't end up back on the same cell
-            };
-
-            var cell = SelectUnoccupiedCell(occupiedCells);
-            _player.X = cell[0]; _player.Y = cell[1];
+            _map.Bats.Remove();
+            _player = _map.SelectUnoccupiedPosition(_player);
 
             return CommandResponse.MovedByBats;
         }
@@ -63,9 +52,9 @@ namespace HuntTheWumpusCore.GameRules
         public CurrentLocation GetCurrentLocation()
         {
             return new CurrentLocation(
-                IsPlayerNextTo(_bats),
-                IsPlayerNextTo(_wumpus),
-                IsPlayerNextTo(_pit)
+                IsPlayerNextTo(_map.Bats),
+                IsPlayerNextTo(_map.Wumpus),
+                IsPlayerNextTo(_map.Pit)
             );
         }
 
@@ -128,44 +117,21 @@ namespace HuntTheWumpusCore.GameRules
             switch (command)
             {
                 case Command.ShootUp:
-                    return _wumpus.IsAbove(_player);
+                    return _map.Wumpus.IsAbove(_player);
 
                 case Command.ShootDown:
-                    return _wumpus.IsBelow(_player);
+                    return _map.Wumpus.IsBelow(_player);
 
                 case Command.ShootLeft:
-                    return _wumpus.IsLeftOf(_player);
+                    return _map.Wumpus.IsLeftOf(_player);
 
                 case Command.ShootRight:
-                    return _wumpus.IsRightOf(_player);
+                    return _map.Wumpus.IsRightOf(_player);
             }
 
             return false; // Default case, should never be reached
         }
 
         private bool IsPlayerOn(Position coords) => _player.IsOn(coords);
-
-        private int[] SelectUnoccupiedCell(List<int[]> occupiedCells)
-        {
-            var rnd = new Random();
-            bool occupied;
-            int[] selectedCell;
-
-            do {
-                var x = rnd.Next(_mapSize);
-                var y = rnd.Next(_mapSize);
-                selectedCell = [x, y];
-                
-                occupied = false;
-                occupiedCells.ForEach(occupiedCell => {
-                    // Check if selected cell matches any occupied cells
-                    if (occupiedCell[0] == selectedCell[0] && occupiedCell[1] == selectedCell[1]) {
-                        occupied = true;
-                    }
-                });
-            } while (occupied);
-
-            return selectedCell;
-        }
     }
 }

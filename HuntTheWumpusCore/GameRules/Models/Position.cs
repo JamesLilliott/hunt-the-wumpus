@@ -34,6 +34,12 @@ public record Position(int X, int Y)
 
         return false;
     }
+
+    public void Remove()
+    {
+        X = -1;
+        Y = -1;
+    }
     
     private bool IsYAdjacent(Position position) 
         => Y - position.Y == 1 || position.Y - Y == 1;
