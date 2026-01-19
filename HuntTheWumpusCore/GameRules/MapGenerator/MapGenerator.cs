@@ -6,13 +6,13 @@ namespace HuntTheWumpusCore.GameRules.MapGenerator
     {
         private int _mapSize;
 
-        private int[] _pit = new int[2];
+        private Position _pit;
 
-        private int[] _bats = new int[2];
+        private Position _bats;
 
-        private int[] _wumpus = new int[2];
+        private Position _wumpus;
 
-        private int[] _player = new int[2];
+        private Position _player;
         
         public MapGenerator(int mapSize)
         {
@@ -27,60 +27,60 @@ namespace HuntTheWumpusCore.GameRules.MapGenerator
 
         public Position GetBatsLocation()
         {
-            return new Position(_bats[0], _bats[1]);
+            return _bats;
         }
 
         public Position GetPitLocation()
         {
-            return new Position(_pit[0], _pit[1]);
+            return _pit;
         }
 
         public Position GetPlayerLocation()
         {
-            return new Position(_player[0], _player[1]);
+            return _player;
         }
 
         public Position GetWumpusLocation()
         {
-            return new Position(_wumpus[0], _wumpus[1]);
+            return _wumpus;
         }
 
         private void PlaceObstaclesAndPlayer()
         {
-            var occupiedCells = new List<int[]>();
+            var occupiedPositions = new List<Position>();
 
-            var cell = SelectUnoccupiedCell(occupiedCells);
-            occupiedCells.Add(cell);
-            _pit[0] = cell[0]; _pit[1] = cell[1];
+            var cell = SelectUnoccupiedCell(occupiedPositions);
+            occupiedPositions.Add(cell);
+            _pit = cell;
 
-            cell = SelectUnoccupiedCell(occupiedCells);
-            occupiedCells.Add(cell);
-            _bats[0] = cell[0]; _bats[1] = cell[1];
+            cell = SelectUnoccupiedCell(occupiedPositions);
+            occupiedPositions.Add(cell);
+            _bats = cell;
 
-            cell = SelectUnoccupiedCell(occupiedCells);
-            occupiedCells.Add(cell);
-            _wumpus[0] = cell[0]; _wumpus[1] = cell[1];
+            cell = SelectUnoccupiedCell(occupiedPositions);
+            occupiedPositions.Add(cell);
+            _wumpus = cell;
 
-            cell = SelectUnoccupiedCell(occupiedCells);
-            occupiedCells.Add(cell);
-            _player[0] = cell[0]; _player[1] = cell[1];
+            cell = SelectUnoccupiedCell(occupiedPositions);
+            occupiedPositions.Add(cell);
+            _player = cell;
         }
 
-        private int[] SelectUnoccupiedCell(List<int[]> occupiedCells)
+        private Position SelectUnoccupiedCell(List<Position> occupiedPositions)
         {
             var rnd = new Random();
             bool occupied;
-            int[] selectedCell;
+            Position selectedCell;
 
             do {
                 var x = rnd.Next(_mapSize);
                 var y = rnd.Next(_mapSize);
-                selectedCell = [x, y];
+                selectedCell = new Position(x, y);
                 
                 occupied = false;
-                occupiedCells.ForEach(occupiedCell => {
-                    // Check if selected cell matches any occupied cells
-                    if (occupiedCell[0] == selectedCell[0] && occupiedCell[1] == selectedCell[1]) {
+                occupiedPositions.ForEach(occupiedPosition => {
+                    if (selectedCell.IsOn(occupiedPosition))
+                    {
                         occupied = true;
                     }
                 });

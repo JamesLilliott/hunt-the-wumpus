@@ -7,15 +7,18 @@ public record Position(int X, int Y)
 
     public bool IsOn(Position position) 
         => position.X == X && position.Y == Y;
-    
-    private bool AreCoordsNextToEachOther(int x, int y) 
-        => x - y == 1 || y - x == 1;
-    
-    private bool IsYAdjacent(Position position) 
-        => Y - position.Y == 1 || position.Y - Y == 1;
 
-    private bool IsXAdjacent(Position position) 
-        => X - position.X == 1 || position.X - X == 1;
+    public bool IsAbove(Position position) 
+        => position.X == X && position.Y + 1 == Y;
+
+    public bool IsBelow(Position position) 
+        => position.X == X && position.Y - 1 == Y;
+
+    public bool IsLeftOf(Position position)
+        => position.Y == Y && position.X - 1 == X;
+
+    public bool IsRightOf(Position position) 
+        => position.Y == Y && position.X + 1 == X;
 
     public bool IsNextTo(Position position)
     {
@@ -32,4 +35,9 @@ public record Position(int X, int Y)
         return false;
     }
     
+    private bool IsYAdjacent(Position position) 
+        => Y - position.Y == 1 || position.Y - Y == 1;
+
+    private bool IsXAdjacent(Position position) 
+        => X - position.X == 1 || position.X - X == 1;
 }

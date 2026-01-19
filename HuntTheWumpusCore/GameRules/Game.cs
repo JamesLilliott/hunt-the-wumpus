@@ -112,7 +112,7 @@ namespace HuntTheWumpusCore.GameRules
 
         private CommandResponse Shoot(Command command)
         {
-            var isShotHit = IsPlayerAdjacentToWumpus(command);
+            var isShotHit = DidShotHit(command);
 
             if (isShotHit)  
             {
@@ -123,21 +123,21 @@ namespace HuntTheWumpusCore.GameRules
             return CommandResponse.ShotMissed;
         }
 
-        private bool IsPlayerAdjacentToWumpus(Command command)
+        private bool DidShotHit(Command command)
         {
             switch (command)
             {
                 case Command.ShootUp:
-                    return _player.X == _wumpus.X && _player.Y + 1 == _wumpus.Y;
+                    return _wumpus.IsAbove(_player);
 
                 case Command.ShootDown:
-                    return _player.X == _wumpus.X && _player.Y - 1 == _wumpus.Y;
+                    return _wumpus.IsBelow(_player);
 
                 case Command.ShootLeft:
-                    return _player.Y == _wumpus.Y && _player.X - 1 == _wumpus.X;
+                    return _wumpus.IsLeftOf(_player);
 
                 case Command.ShootRight:
-                    return _player.Y == _wumpus.Y && _player.X + 1 == _wumpus.X;
+                    return _wumpus.IsRightOf(_player);
             }
 
             return false; // Default case, should never be reached
