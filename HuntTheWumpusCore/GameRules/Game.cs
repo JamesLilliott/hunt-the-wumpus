@@ -1,13 +1,14 @@
 using HuntTheWumpusCore.GameRules.MapGenerator;
+using HuntTheWumpusCore.GameRules.Models;
 
 namespace HuntTheWumpusCore.GameRules
 {
     public class Game(IMapGenerator mapGenerator)
     {
-        private int[] _pit = mapGenerator.GetPitLocation();
-        private int[] _bats = mapGenerator.GetBatsLocation();
-        private int[] _wumpus = mapGenerator.GetWumpusLocation();
-        private int[] _player = mapGenerator.GetPlayerLocation();
+        private Position _pit = mapGenerator.GetPitLocation();
+        private Position _bats = mapGenerator.GetBatsLocation();
+        private Position _wumpus = mapGenerator.GetWumpusLocation();
+        private Position _player = mapGenerator.GetPlayerLocation();
         private int _mapSize = mapGenerator.GetMapSize();
         public bool GameOver = false;
 
@@ -43,18 +44,18 @@ namespace HuntTheWumpusCore.GameRules
 
         private CommandResponse BatsMovePlayer()
         {
-            _bats[0] = -1;
-            _bats[1] = -1;
+            _bats.X = -1;
+            _bats.Y = -1;
 
             var occupiedCells = new List<int[]>
             {
-                new[] { _wumpus[0], _wumpus[1] },
-                new[] { _pit[0], _pit[1] },
-                new[] {_player[0], _player[1]} // Add the player, so you don't end up back on the same cell
+                new[] { _wumpus.X, _wumpus.Y },
+                new[] { _pit.X, _pit.Y },
+                new[] {_player.X, _player.Y} // Add the player, so you don't end up back on the same cell
             };
 
             var cell = SelectUnoccupiedCell(occupiedCells);
-            _player[0] = cell[0]; _player[1] = cell[1];
+            _player.X = cell[0]; _player.Y = cell[1];
 
             return CommandResponse.MovedByBats;
         }
@@ -68,15 +69,15 @@ namespace HuntTheWumpusCore.GameRules
             );
         }
 
-        private bool IsPlayerNextTo(int[] coords)
+        private bool IsPlayerNextTo(Position coords)
         {
             // Do x coords match and y off by one?
-            if (coords[0] == _player[0] && AreCoordsNextToEachOther(_player[1], coords[1])) {
+            if (coords.X == _player.X && AreCoordsNextToEachOther(_player.Y, coords.Y)) {
                 return true;
             }
 
             // Do y coords match and x off by one?
-            if (coords[1] == _player[1] && AreCoordsNextToEachOther(_player[0], coords[0])) {
+            if (coords.Y == _player.Y && AreCoordsNextToEachOther(_player.X, coords.X)) {
                 return true;
             }
 
@@ -93,30 +94,30 @@ namespace HuntTheWumpusCore.GameRules
             switch (command)
             {
                 case Command.MoveUp:
-                    isValidMove = _player[1] != _mapSize;
+                    isValidMove = _player.Y != _mapSize;
                     if (isValidMove) {
-                        _player[1]++;
+                        _player.Y++;
                     }
                     break;
 
                 case Command.MoveDown:
-                    isValidMove = _player[1] != 0;
+                    isValidMove = _player.Y != 0;
                     if (isValidMove) {
-                        _player[1]--;
+                        _player.Y--;
                     }
                     break;
 
                 case Command.MoveLeft:
-                    isValidMove = _player[0] != 0;
+                    isValidMove = _player.X != 0;
                     if (isValidMove) {
-                        _player[0]--;
+                        _player.X--;
                     }
                     break;
 
                 case Command.MoveRight:
-                    isValidMove = _player[0] != _mapSize;
+                    isValidMove = _player.X != _mapSize;
                     if (isValidMove) {
-                        _player[0]++;
+                        _player.X++;
                     }
                     break;
             }
@@ -142,23 +143,23 @@ namespace HuntTheWumpusCore.GameRules
             switch (command)
             {
                 case Command.ShootUp:
-                    return _player[0] == _wumpus[0] && _player[1] + 1 == _wumpus[1];
+                    return _player.X == _wumpus.X && _player.Y + 1 == _wumpus.Y;
 
                 case Command.ShootDown:
-                    return _player[0] == _wumpus[0] && _player[1] - 1 == _wumpus[1];
+                    return _player.X == _wumpus.X && _player.Y - 1 == _wumpus.Y;
 
                 case Command.ShootLeft:
-                    return _player[1] == _wumpus[1] && _player[0] - 1 == _wumpus[0];
+                    return _player.Y == _wumpus.Y && _player.X - 1 == _wumpus.X;
 
                 case Command.ShootRight:
-                    return _player[1] == _wumpus[1] && _player[0] + 1 == _wumpus[0];
+                    return _player.Y == _wumpus.Y && _player.X + 1 == _wumpus.X;
             }
 
             return false; // Default case, should never be reached
         }
 
-        private bool IsPlayerOn(int[] coords)
-            => _player[0] == coords[0] & _player[1] == coords[1];
+        private bool IsPlayerOn(Position coords)
+            => _player.X == coords.X & _player.Y == coords.Y;
         private int[] SelectUnoccupiedCell(List<int[]> occupiedCells)
         {
             var rnd = new Random();

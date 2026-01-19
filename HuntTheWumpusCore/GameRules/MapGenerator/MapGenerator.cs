@@ -1,3 +1,5 @@
+using HuntTheWumpusCore.GameRules.Models;
+
 namespace HuntTheWumpusCore.GameRules.MapGenerator
 {
     public class MapGenerator : IMapGenerator
@@ -23,24 +25,24 @@ namespace HuntTheWumpusCore.GameRules.MapGenerator
             return _mapSize;
         }
 
-        public int[] GetBatsLocation()
+        public Position GetBatsLocation()
         {
-            return [_bats[0], _bats[1]];
+            return new Position(_wumpus[0], _wumpus[1]);
         }
 
-        public int[] GetPitLocation()
+        public Position GetPitLocation()
         {
-            return [_pit[0], _pit[1]];
+            return new Position(_wumpus[0], _wumpus[1]);
         }
 
-        public int[] GetPlayerLocation()
+        public Position GetPlayerLocation()
         {
-            return [_player[0], _player[1]];
+            return new Position(_wumpus[0], _wumpus[1]);
         }
 
-        public int[] GetWumpusLocation()
+        public Position GetWumpusLocation()
         {
-            return [_wumpus[0], _wumpus[1]];
+            return new Position(_wumpus[0], _wumpus[1]);
         }
 
         private void PlaceObstaclesAndPlayer()

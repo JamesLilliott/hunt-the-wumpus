@@ -1,15 +1,17 @@
+using HuntTheWumpusCore.GameRules.Models;
+
 namespace HuntTheWumpusCore.GameRules.MapGenerator
 {
     public interface IMapGenerator 
     {
         public int GetMapSize();
 
-        public int[] GetWumpusLocation();
+        public Position GetWumpusLocation();
 
-        public int[] GetPitLocation();
+        public Position GetPitLocation();
 
-        public int[] GetBatsLocation();
+        public Position GetBatsLocation();
 
-        public int[] GetPlayerLocation();
+        public Position GetPlayerLocation();
     }
 }
