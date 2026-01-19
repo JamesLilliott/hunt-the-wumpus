@@ -27,17 +27,17 @@ namespace HuntTheWumpusCore.GameRules.MapGenerator
 
         public Position GetBatsLocation()
         {
-            return new Position(_wumpus[0], _wumpus[1]);
+            return new Position(_bats[0], _bats[1]);
         }
 
         public Position GetPitLocation()
         {
-            return new Position(_wumpus[0], _wumpus[1]);
+            return new Position(_pit[0], _pit[1]);
         }
 
         public Position GetPlayerLocation()
         {
-            return new Position(_wumpus[0], _wumpus[1]);
+            return new Position(_player[0], _player[1]);
         }
 
         public Position GetWumpusLocation()

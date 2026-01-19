@@ -69,23 +69,8 @@ namespace HuntTheWumpusCore.GameRules
             );
         }
 
-        private bool IsPlayerNextTo(Position coords)
-        {
-            // Do x coords match and y off by one?
-            if (coords.X == _player.X && AreCoordsNextToEachOther(_player.Y, coords.Y)) {
-                return true;
-            }
-
-            // Do y coords match and x off by one?
-            if (coords.Y == _player.Y && AreCoordsNextToEachOther(_player.X, coords.X)) {
-                return true;
-            }
-
-            return false;
-        }
-
-        private bool AreCoordsNextToEachOther(int x, int y) 
-            => x - y == 1 || y - x == 1;
+        private bool IsPlayerNextTo(Position coords) 
+            => _player.IsNextTo(coords);
 
         private CommandResponse MovePlayer(Command command)
         {
@@ -158,8 +143,8 @@ namespace HuntTheWumpusCore.GameRules
             return false; // Default case, should never be reached
         }
 
-        private bool IsPlayerOn(Position coords)
-            => _player.X == coords.X & _player.Y == coords.Y;
+        private bool IsPlayerOn(Position coords) => _player.IsOn(coords);
+
         private int[] SelectUnoccupiedCell(List<int[]> occupiedCells)
         {
             var rnd = new Random();
