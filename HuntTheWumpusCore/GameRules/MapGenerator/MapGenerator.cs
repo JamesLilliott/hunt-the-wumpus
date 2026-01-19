@@ -2,80 +2,81 @@ namespace HuntTheWumpusCore.GameRules.MapGenerator
 {
     public class MapGenerator : IMapGenerator
     {
+        private int _mapSize;
 
-        private int mapSize;
-        private int[] pit = new int[2];
-        private int[] bats = new int[2];
-        private int[] wumpus = new int[2];
-        private int[] player = new int[2];
+        private int[] _pit = new int[2];
+
+        private int[] _bats = new int[2];
+
+        private int[] _wumpus = new int[2];
+
+        private int[] _player = new int[2];
+        
         public MapGenerator(int mapSize)
         {
-            this.mapSize = mapSize;
-            this.PlaceObsticlesAndPlayer();
+            _mapSize = mapSize;
+            PlaceObstaclesAndPlayer();
         }
         
-        public int getMapSize()
+        public int GetMapSize()
         {
-            return this.mapSize;
+            return _mapSize;
         }
 
-        public int[] getBatsLocation()
+        public int[] GetBatsLocation()
         {
-            return new int[]{this.bats[0], this.bats[1]};
+            return [_bats[0], _bats[1]];
         }
 
-        public int[] getPitLocation()
+        public int[] GetPitLocation()
         {
-            return new int[]{this.pit[0], this.pit[1]};
+            return [_pit[0], _pit[1]];
         }
 
-        public int[] getPlayerLocation()
+        public int[] GetPlayerLocation()
         {
-            return new int[]{this.player[0], this.player[1]};
+            return [_player[0], _player[1]];
         }
 
-        public int[] getWumpusLocation()
+        public int[] GetWumpusLocation()
         {
-            return new int[]{this.wumpus[0], this.wumpus[1]};
+            return [_wumpus[0], _wumpus[1]];
         }
 
-        private void PlaceObsticlesAndPlayer()
+        private void PlaceObstaclesAndPlayer()
         {
-            List<int[]> occupiedCells = new List<int[]>();
-            int[] cell;
-            
-            cell = this.SelectUnoccupidCell(occupiedCells);
+            var occupiedCells = new List<int[]>();
+
+            var cell = SelectUnoccupiedCell(occupiedCells);
             occupiedCells.Add(cell);
-            this.pit[0] = cell[0]; this.pit[1] = cell[1];
+            _pit[0] = cell[0]; _pit[1] = cell[1];
 
-            cell = this.SelectUnoccupidCell(occupiedCells);
+            cell = SelectUnoccupiedCell(occupiedCells);
             occupiedCells.Add(cell);
-            this.bats[0] = cell[0]; this.bats[1] = cell[1];
+            _bats[0] = cell[0]; _bats[1] = cell[1];
 
-            cell = this.SelectUnoccupidCell(occupiedCells);
+            cell = SelectUnoccupiedCell(occupiedCells);
             occupiedCells.Add(cell);
-            this.wumpus[0] = cell[0]; this.wumpus[1] = cell[1];
+            _wumpus[0] = cell[0]; _wumpus[1] = cell[1];
 
-            cell = this.SelectUnoccupidCell(occupiedCells);
+            cell = SelectUnoccupiedCell(occupiedCells);
             occupiedCells.Add(cell);
-            this.player[0] = cell[0]; this.player[1] = cell[1];
+            _player[0] = cell[0]; _player[1] = cell[1];
         }
 
-        private int[] SelectUnoccupidCell(List<int[]> occupiedCells)
+        private int[] SelectUnoccupiedCell(List<int[]> occupiedCells)
         {
-            Random rnd = new Random();
+            var rnd = new Random();
             bool occupied;
             int[] selectedCell;
-            int x;
-            int y;
 
             do {
-                x = rnd.Next(this.mapSize);
-                y = rnd.Next(this.mapSize);
-                selectedCell = new int[2]{x, y};
+                var x = rnd.Next(_mapSize);
+                var y = rnd.Next(_mapSize);
+                selectedCell = [x, y];
                 
                 occupied = false;
-                occupiedCells.ForEach((occupiedCell) => {
+                occupiedCells.ForEach(occupiedCell => {
                     // Check if selected cell matches any occupied cells
                     if (occupiedCell[0] == selectedCell[0] && occupiedCell[1] == selectedCell[1]) {
                         occupied = true;

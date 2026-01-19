@@ -1,17 +1,9 @@
 namespace HuntTheWumpusCore.GameRules
 {
-    public class CurrentLocation 
+    public record CurrentLocation(bool BatDroppings, bool BadOdour, bool GustsOfWind)
     {
-        public bool batDroppings;
-        public bool badOdur;
-
-        public bool gustsOfWind;
-
-        public CurrentLocation(bool batDroppings, bool badOdur, bool gustsOfWind)
-        {
-            this.batDroppings = batDroppings;
-            this.badOdur = badOdur;
-            this.gustsOfWind = gustsOfWind;
-        }
+        public bool BatDroppings = BatDroppings;
+        public bool BadOdour = BadOdour;
+        public bool GustsOfWind = GustsOfWind;
     }
 }

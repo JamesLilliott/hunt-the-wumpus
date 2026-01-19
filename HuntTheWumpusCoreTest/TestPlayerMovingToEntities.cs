@@ -29,7 +29,7 @@ public class TestPlayerMovingToEntities
         Game game = new Game(devMap);
 
         // Act - Move the player into the wumpus
-        CommandResponse commandResponse = game.processCommand(Command.MoveLeft);
+        CommandResponse commandResponse = game.ProcessCommand(Command.MoveLeft);
 
         // Assert the game is over
         Assert.AreEqual(CommandResponse.AteByWumpus, commandResponse);
@@ -44,7 +44,7 @@ public class TestPlayerMovingToEntities
         Game game = new Game(devMap);
 
         // Act - Move the player into the pit
-        CommandResponse commandResponse = game.processCommand(Command.MoveLeft);
+        CommandResponse commandResponse = game.ProcessCommand(Command.MoveLeft);
 
         // Assert the game is over
         Assert.AreEqual(CommandResponse.FellInPit, commandResponse);
@@ -59,7 +59,7 @@ public class TestPlayerMovingToEntities
         Game game = new Game(devMap);
 
         // Act - Move the player into the bats
-        CommandResponse commandResponse = game.processCommand(Command.MoveLeft);
+        CommandResponse commandResponse = game.ProcessCommand(Command.MoveLeft);
 
         // Assert the game is over
         Assert.AreEqual(CommandResponse.MovedByBats, commandResponse);

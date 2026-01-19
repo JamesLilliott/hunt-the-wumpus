@@ -2,10 +2,14 @@ namespace HuntTheWumpusCore.GameRules.MapGenerator
 {
     public interface IMapGenerator 
     {
-        public int getMapSize();
-        public int[] getWumpusLocation();
-        public int[] getPitLocation();
-        public int[] getBatsLocation();
-        public int[] getPlayerLocation();
+        public int GetMapSize();
+
+        public int[] GetWumpusLocation();
+
+        public int[] GetPitLocation();
+
+        public int[] GetBatsLocation();
+
+        public int[] GetPlayerLocation();
     }
 }

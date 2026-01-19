@@ -18,14 +18,14 @@ public class TestCurrentLocation
         Game game = new Game(devMap);
 
         // Act - Move the player next the bats
-        CommandResponse commandResponse = game.processCommand(Command.MoveDown);
+        CommandResponse commandResponse = game.ProcessCommand(Command.MoveDown);
         CurrentLocation currentLocation = game.GetCurrentLocation();
 
         // Assert the bats are nearby
         Assert.AreEqual(CommandResponse.Moved, commandResponse);
-        Assert.IsTrue(currentLocation.batDroppings);
-        Assert.IsFalse(currentLocation.badOdur);
-        Assert.IsFalse(currentLocation.gustsOfWind);
+        Assert.IsTrue(currentLocation.BatDroppings);
+        Assert.IsFalse(currentLocation.BadOdour);
+        Assert.IsFalse(currentLocation.GustsOfWind);
     }
 
     [Test]
@@ -36,14 +36,14 @@ public class TestCurrentLocation
         Game game = new Game(devMap);
 
         // Act - Move the player next the bats
-        CommandResponse commandResponse = game.processCommand(Command.MoveDown);
+        CommandResponse commandResponse = game.ProcessCommand(Command.MoveDown);
         CurrentLocation currentLocation = game.GetCurrentLocation();
 
         // Assert the pit are nearby
         Assert.AreEqual(CommandResponse.Moved, commandResponse);
-        Assert.IsTrue(currentLocation.gustsOfWind);
-        Assert.IsFalse(currentLocation.badOdur);
-        Assert.IsFalse(currentLocation.batDroppings);
+        Assert.IsTrue(currentLocation.GustsOfWind);
+        Assert.IsFalse(currentLocation.BadOdour);
+        Assert.IsFalse(currentLocation.BatDroppings);
     }
 
     [Test]
@@ -54,14 +54,14 @@ public class TestCurrentLocation
         Game game = new Game(devMap);
 
         // Act - Move the player next the bats
-        CommandResponse commandResponse = game.processCommand(Command.MoveDown);
+        CommandResponse commandResponse = game.ProcessCommand(Command.MoveDown);
         CurrentLocation currentLocation = game.GetCurrentLocation();
 
         // Assert the wumpus are nearby
         Assert.AreEqual(CommandResponse.Moved, commandResponse);
-        Assert.IsTrue(currentLocation.badOdur);
-        Assert.IsFalse(currentLocation.gustsOfWind);
-        Assert.IsFalse(currentLocation.batDroppings);
+        Assert.IsTrue(currentLocation.BadOdour);
+        Assert.IsFalse(currentLocation.GustsOfWind);
+        Assert.IsFalse(currentLocation.BatDroppings);
     }
 
     [Test]
@@ -72,14 +72,14 @@ public class TestCurrentLocation
         Game game = new Game(devMap);
 
         // Act - Move the player next the bats
-        CommandResponse commandResponse = game.processCommand(Command.MoveLeft);
+        CommandResponse commandResponse = game.ProcessCommand(Command.MoveLeft);
         CurrentLocation currentLocation = game.GetCurrentLocation();
 
         // Assert the bats, wumpus and pit are nearby
         Assert.AreEqual(CommandResponse.Moved, commandResponse);
-        Assert.IsTrue(currentLocation.badOdur);
-        Assert.IsTrue(currentLocation.gustsOfWind);
-        Assert.IsTrue(currentLocation.batDroppings);
+        Assert.IsTrue(currentLocation.BadOdour);
+        Assert.IsTrue(currentLocation.GustsOfWind);
+        Assert.IsTrue(currentLocation.BatDroppings);
     }
     
 }

@@ -1,30 +1,20 @@
-
 using HuntTheWumpusCore.GameRules;
-/**
-* A dev console to test changes made to GameRules
-*/
-namespace HuntTheWumpusCore.Dev
+
+namespace HuntTheWumpusCore.DevConsole
 {
-    class DevConsole
+    class DevConsole(Game game)
     {
-        public Game game;
-        public DevConsole(Game game)
+        public void Run()
         {
-            this.game = game;
-        }
+            RenderLocation();
 
-        public void run()
-        {
-            this.RenderLocation();
+            while (!game.GameOver) {
+                var input = InputCommand();
+                var command = ConvertInputToCommand(input);
+                var commandResponse = game.ProcessCommand(command);
 
-            String input;
-            while (!this.game.GameOver) {
-                input = InputCommand();
-                Command command = this.ConvertInputToCommand(input);
-                CommandResponse commandResponse = game.processCommand(command);
-
-                this.DescribeResponse(commandResponse);
-                this.RenderLocation();
+                DescribeResponse(commandResponse);
+                RenderLocation();
             }
         }
 
@@ -62,9 +52,9 @@ namespace HuntTheWumpusCore.Dev
 
         private string InputCommand() 
         {
-            Boolean validInput = false;
-            String[] validInputs = {"move up", "move down", "move left", "move right", "shoot up", "shoot down", "shoot right", "shoot left"};
-            String? input = "";
+            var validInput = false;
+            string[] validInputs = ["move up", "move down", "move left", "move right", "shoot up", "shoot down", "shoot right", "shoot left"];
+            var input = "";
 
             while (!validInput) {
                 Console.WriteLine("Please input a command: ");
@@ -105,21 +95,21 @@ namespace HuntTheWumpusCore.Dev
 
         private void RenderLocation()
         {
-            if (this.game.GameOver) {
+            if (game.GameOver) {
                 Console.WriteLine("Game Over!");
                 return;
             }
             
-            CurrentLocation currentLocation = this.game.GetCurrentLocation();
-            if (currentLocation.batDroppings) {
+            var currentLocation = game.GetCurrentLocation();
+            if (currentLocation.BatDroppings) {
                 Console.WriteLine("Next to bats");
             }
 
-            if (currentLocation.badOdur) {
+            if (currentLocation.BadOdour) {
                 Console.WriteLine("Next to wumpus");
             }
 
-            if (currentLocation.gustsOfWind) {
+            if (currentLocation.GustsOfWind) {
                 Console.WriteLine("Next to pit");
             }
         }

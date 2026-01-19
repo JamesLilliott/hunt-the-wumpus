@@ -1,4 +1,4 @@
-﻿using HuntTheWumpusCore.Dev;
+﻿using HuntTheWumpusCore.DevConsole;
 using HuntTheWumpusCore.GameRules;
 using HuntTheWumpusCore.GameRules.MapGenerator;
 
@@ -9,4 +9,4 @@ Game game = new Game(mapGenerator);
 
 DevConsole consoleGame = new DevConsole(game);
 
-consoleGame.run();
+consoleGame.Run();

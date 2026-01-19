@@ -20,19 +20,19 @@ public class TestMoving
         // Act & Assert  - Move Around
         CommandResponse commandResponse;
         
-        commandResponse = game.processCommand(Command.MoveDown);
+        commandResponse = game.ProcessCommand(Command.MoveDown);
         Assert.AreEqual(CommandResponse.Moved, commandResponse);
         
-        commandResponse = game.processCommand(Command.MoveUp);
+        commandResponse = game.ProcessCommand(Command.MoveUp);
         Assert.AreEqual(CommandResponse.Moved, commandResponse);
         
-        commandResponse = game.processCommand(Command.MoveRight);
+        commandResponse = game.ProcessCommand(Command.MoveRight);
         Assert.AreEqual(CommandResponse.Moved, commandResponse);
         
-        commandResponse = game.processCommand(Command.MoveLeft);
+        commandResponse = game.ProcessCommand(Command.MoveLeft);
         Assert.AreEqual(CommandResponse.Moved, commandResponse);
         
-        commandResponse = game.processCommand(Command.MoveLeft);
+        commandResponse = game.ProcessCommand(Command.MoveLeft);
         Assert.AreEqual(CommandResponse.FailedToMove, commandResponse); // hit the wall        
     }   
 }

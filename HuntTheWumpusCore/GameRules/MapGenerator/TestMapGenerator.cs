@@ -16,27 +16,27 @@ namespace HuntTheWumpusCore.GameRules.MapGenerator
             this.wumpus = wumpus;
         }
         
-        public int getMapSize()
+        public int GetMapSize()
         {
             return this.mapSize;
         }
 
-        public int[] getBatsLocation()
+        public int[] GetBatsLocation()
         {
             return new int[]{this.bats[0], this.bats[1]};
         }
 
-        public int[] getPitLocation()
+        public int[] GetPitLocation()
         {
             return new int[]{this.pit[0], this.pit[1]};
         }
 
-        public int[] getPlayerLocation()
+        public int[] GetPlayerLocation()
         {
             return new int[]{this.player[0], this.player[1]};
         }
 
-        public int[] getWumpusLocation()
+        public int[] GetWumpusLocation()
         {
             return new int[]{this.wumpus[0], this.wumpus[1]};
         }

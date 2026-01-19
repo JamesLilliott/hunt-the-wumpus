@@ -18,7 +18,7 @@ public class TestShooting
         Game game = new Game(devMap);
 
         // Act - Shoot left
-        CommandResponse commandResponse = game.processCommand(Command.ShootLeft);
+        CommandResponse commandResponse = game.ProcessCommand(Command.ShootLeft);
 
         // Assert - Hit
         Assert.AreEqual(CommandResponse.ShotHit, commandResponse);
@@ -33,7 +33,7 @@ public class TestShooting
         Game game = new Game(devMap);
 
         // Act - Shoot right
-        CommandResponse commandResponse = game.processCommand(Command.ShootRight);
+        CommandResponse commandResponse = game.ProcessCommand(Command.ShootRight);
 
         // Assert - Hit
         Assert.AreEqual(CommandResponse.ShotHit, commandResponse);
@@ -48,7 +48,7 @@ public class TestShooting
         Game game = new Game(devMap);
 
         // Act - Shoot up
-        CommandResponse commandResponse = game.processCommand(Command.ShootUp);
+        CommandResponse commandResponse = game.ProcessCommand(Command.ShootUp);
 
         // Assert - Hit
         Assert.AreEqual(CommandResponse.ShotHit, commandResponse);
@@ -63,7 +63,7 @@ public class TestShooting
         Game game = new Game(devMap);
 
         // Act - Shoot down
-        CommandResponse commandResponse = game.processCommand(Command.ShootDown);
+        CommandResponse commandResponse = game.ProcessCommand(Command.ShootDown);
 
         // Assert - Hit
         Assert.AreEqual(CommandResponse.ShotHit, commandResponse);
@@ -78,7 +78,7 @@ public class TestShooting
         Game game = new Game(devMap);
 
         // Act - Shoot down
-        CommandResponse commandResponse = game.processCommand(Command.ShootDown);
+        CommandResponse commandResponse = game.ProcessCommand(Command.ShootDown);
 
         // Assert - Hit
         Assert.AreEqual(CommandResponse.ShotMissed, commandResponse);
